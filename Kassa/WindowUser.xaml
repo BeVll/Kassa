@@ -4,16 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kassa"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="WindowUser" Height="700" Width="1220">
     <Grid>
-        <Border Width="250" HorizontalAlignment="Left" Background="#2196F3">
+        <Border Width = "1220" Height="50" HorizontalAlignment="Right" VerticalAlignment="Top" Background="AliceBlue">
             
-        </Border>
-        <Border Width="970" Height="70" HorizontalAlignment="Right" VerticalAlignment="Top" Background="AliceBlue">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3" Direction="180"></DropShadowEffect>
             </Border.Effect>
         </Border>
+        <Border Width="250" HorizontalAlignment="Left" Background="#2196F3">
+            <Grid Height="120" VerticalAlignment="Top" Background="#1A76C1">
+                <Button Width="70" Height="50" Foreground="White" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Padding="0" Style="{DynamicResource MaterialDesignFlatButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0">
+                    <materialDesign:PackIcon Kind="Menu" Width="50" Height="50"></materialDesign:PackIcon>
+                </Button>
+            </Grid>
+        </Border>
+        
     </Grid>
 </Window>

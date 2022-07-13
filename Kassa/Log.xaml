@@ -17,7 +17,7 @@
                 <TextBox x:Name="login" materialDesign:HintAssist.Hint ="Введіть логін"  Cursor="Arrow" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Comic Sans MS" Margin="35, 0" />
                 <PasswordBox x:Name="pass" materialDesign:HintAssist.Hint ="Введіть пароль" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" FontFamily="Comic Sans MS" Margin="35, 10" SelectionBrush="#FF12C6FC" Cursor="Arrow"/>
                 <Grid Margin="35">
-                    <Button Content="Ввійти" Width="110" HorizontalAlignment="Left" Cursor="Hand"></Button>
+                    <Button Content="Ввійти" Width="110" HorizontalAlignment="Left" Cursor="Hand" Click="Button_Click_1"></Button>
                     <Button Content="Реєстрація" Width="140" HorizontalAlignment="Right" Click="Button_Click"></Button>
                 </Grid>
             </StackPanel>

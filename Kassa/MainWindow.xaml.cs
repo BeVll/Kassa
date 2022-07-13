@@ -23,8 +23,10 @@ namespace Kassa
         public MainWindow()
         {
             InitializeComponent();
-            Log log = new Log();
-            log.Show();
+            //Log log = new Log();
+            //log.Show();
+            WindowUser wu = new WindowUser();
+            wu.Show();
             Close();
         }
     }

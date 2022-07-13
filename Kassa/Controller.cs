@@ -16,6 +16,7 @@ namespace Kassa
             if (RegistrationCheck(login))
             {
                 bd.Users.Add(new User(login, pass,"User",0));
+                bd.SaveChanges();
                 return true;
             }
             else

@@ -19,9 +19,11 @@ namespace Kassa
     /// </summary>
     public partial class Log : Window
     {
+        private Controller controller;
         public Log()
         {
             InitializeComponent();
+            controller = new Controller();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -29,6 +31,23 @@ namespace Kassa
             Regis reg = new Regis();
             reg.Show();
             Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            User user = controller.Login(login.Text, pass.Password);
+            if (user == null)
+                MessageBox.Show("Логин или пароль неверный!", "Ошибка", MessageBoxButton.OK);
+            else
+            {
+                if(user.Type == "User")
+                {
+                    WindowUser wu = new WindowUser(user);
+                    wu.Show();
+                    Close();
+                }
+            }
+
         }
     }
 }

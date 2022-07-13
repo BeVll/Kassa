@@ -19,6 +19,7 @@ namespace Kassa
     /// </summary>
     public partial class Regis : Window
     {
+        
         public Regis()
         {
             InitializeComponent();
@@ -26,7 +27,27 @@ namespace Kassa
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Controller controller = new Controller();
+            if (login.Text.Length < 3)
+                MessageBox.Show("Слишком короткий логин!", "Ошибка", MessageBoxButton.OK);
+            else if (pass.Password.Length < 6)
+                MessageBox.Show("Пароль меньше 6 символов!", "Ошибка", MessageBoxButton.OK);
+            else if (pass.Password != pass2.Password)
+                MessageBox.Show("Пароли не совпадают!", "Ошибка", MessageBoxButton.OK);
+            else
+            {
+                if (controller.Register(login.Text, pass.Password) == true)
+                {
+                    Log log = new Log();
+                    log.Show();
+                    Close();
 
+                }
+                else
+                {
+                    MessageBox.Show("Логин уже занят!", "Ошибка", MessageBoxButton.OK);
+                }
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

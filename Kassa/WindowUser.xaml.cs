@@ -19,9 +19,15 @@ namespace Kassa
     /// </summary>
     public partial class WindowUser : Window
     {
+        private User user;
         public WindowUser()
         {
             InitializeComponent();
+        }
+        public WindowUser(User user)
+        {
+            InitializeComponent();
+            this.user = user;   
         }
     }
 }
