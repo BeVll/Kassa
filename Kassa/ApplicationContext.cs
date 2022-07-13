@@ -13,7 +13,7 @@ namespace WpfApp2
         public DbSet<User> Users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder ob)
         {
-            ob.UseSqlite(@"Data Source=C:\Users\BeVL\source\repos\WpfApp2\WpfApp2\Flowers.db");
+            ob.UseSqlite(@"Data Source=\Flowers.db");
         }
     }
 }

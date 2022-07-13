@@ -10,22 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Kassa
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для Regis.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Regis : Window
     {
-        public MainWindow()
+        public Regis()
         {
             InitializeComponent();
-            Regis reg = new Regis();
-            reg.Show();
-            Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
