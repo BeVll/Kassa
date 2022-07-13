@@ -1,0 +1,19 @@
+﻿<Window x:Class="Kassa.WindowUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kassa"
+        mc:Ignorable="d"
+        Title="WindowUser" Height="700" Width="1220">
+    <Grid>
+        <Border Width="250" HorizontalAlignment="Left" Background="#2196F3">
+            
+        </Border>
+        <Border Width="970" Height="70" HorizontalAlignment="Right" VerticalAlignment="Top" Background="AliceBlue">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3" Direction="180"></DropShadowEffect>
+            </Border.Effect>
+        </Border>
+    </Grid>
+</Window>

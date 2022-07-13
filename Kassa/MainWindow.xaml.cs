@@ -23,8 +23,8 @@ namespace Kassa
         public MainWindow()
         {
             InitializeComponent();
-            Regis reg = new Regis();
-            reg.Show();
+            Log log = new Log();
+            log.Show();
             Close();
         }
     }

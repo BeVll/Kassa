@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Kassa"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Каса : Реєстрація" Height="450" Width="450">
+        Title="Каса : Реєстрація" Height="450" Width="450" WindowStartupLocation="CenterScreen">
     <Grid>
         <Border Background="#E7F9F8" Margin="25" CornerRadius="20" >
             <Border.Effect>
@@ -19,7 +19,7 @@
                 <PasswordBox x:Name="pass2" materialDesign:HintAssist.Hint ="Введіть пароль ще раз" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" FontFamily="Comic Sans MS" Margin="35, 10" SelectionBrush="#FF12C6FC" Cursor="Arrow"/>
                 <Grid Margin="35">
                     <Button Content="Зареєстурватися" Width="170" HorizontalAlignment="Left" Cursor="Hand" Height="32"  VerticalAlignment="Center" Margin="0,0,0,0" Click="Button_Click"></Button>
-                    <Button Content="Скасувати" Width="110" HorizontalAlignment="Right" Cursor="Hand"></Button>
+                    <Button Content="Скасувати" Width="110" HorizontalAlignment="Right" Cursor="Hand" Click="Button_Click_1"></Button>
                 </Grid>
             </StackPanel>
         </Border>

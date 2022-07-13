@@ -1,0 +1,26 @@
+﻿<Window x:Class="Kassa.Log"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kassa"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Каса : Авторизація" Height="450" Width="450" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Border Background="#E7F9F8" Margin="25" CornerRadius="20" >
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="40" Color="LightBlue" ShadowDepth="0"></DropShadowEffect>
+            </Border.Effect>
+            <StackPanel>
+                <TextBlock Text ="Авторизація" TextAlignment="Center" Margin="0, 40" FontWeight="Bold" FontSize="42" Foreground="#2196F3"></TextBlock>
+                <TextBox x:Name="login" materialDesign:HintAssist.Hint ="Введіть логін"  Cursor="Arrow" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Comic Sans MS" Margin="35, 0" />
+                <PasswordBox x:Name="pass" materialDesign:HintAssist.Hint ="Введіть пароль" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" FontFamily="Comic Sans MS" Margin="35, 10" SelectionBrush="#FF12C6FC" Cursor="Arrow"/>
+                <Grid Margin="35">
+                    <Button Content="Ввійти" Width="110" HorizontalAlignment="Left" Cursor="Hand"></Button>
+                    <Button Content="Реєстрація" Width="140" HorizontalAlignment="Right" Click="Button_Click"></Button>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

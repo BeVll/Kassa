@@ -15,26 +15,20 @@ using System.Windows.Shapes;
 namespace Kassa
 {
     /// <summary>
-    /// Логика взаимодействия для Regis.xaml
+    /// Логика взаимодействия для Log.xaml
     /// </summary>
-    public partial class Regis : Window
+    public partial class Log : Window
     {
-        public Regis()
+        public Log()
         {
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            Log log = new Log();
-            log.Show();
+            Regis reg = new Regis();
+            reg.Show();
             Close();
-
         }
     }
 }
