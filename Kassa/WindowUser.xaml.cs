@@ -29,5 +29,17 @@ namespace Kassa
             InitializeComponent();
             this.user = user;   
         }
+
+        private void MenuOpen_Click(object sender, RoutedEventArgs e)
+        {
+            MenuOpen.Visibility = Visibility.Collapsed;
+            MenuClose.Visibility = Visibility.Visible;
+        }
+
+        private void MenuClose_Click(object sender, RoutedEventArgs e)
+        {
+            MenuOpen.Visibility = Visibility.Visible;
+            MenuClose.Visibility = Visibility.Collapsed;
+        }
     }
 }
