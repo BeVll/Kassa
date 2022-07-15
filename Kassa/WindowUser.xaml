@@ -6,92 +6,9 @@
         xmlns:local="clr-namespace:Kassa"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="WindowUser" Height="700" Width="1220">
-    <Window.Resources>
-        <Storyboard x:Key="MenuOpen">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="250"/>
-
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="MenuClose">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="250"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="50"/>
-
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-    </Window.Resources>
-
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuOpen">
-            <BeginStoryboard Storyboard="{DynamicResource MenuOpen}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuClose">
-            <BeginStoryboard Storyboard="{DynamicResource MenuClose}"/>
-        </EventTrigger>
-    </Window.Triggers>
-    <Grid>
-        <Border Width = "1220" Height="50" HorizontalAlignment="Right" VerticalAlignment="Top" Background="AliceBlue">
-            <TextBlock Text="Покупка" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"></TextBlock>
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3" Direction="180"></DropShadowEffect>
-            </Border.Effect>
-        </Border>
-        <Grid x:Name="GridMenu" Width="50" HorizontalAlignment="Left" Background="#2196F3">
-            <Grid Height="120" VerticalAlignment="Top" Background="#1A76C1">
-                <Button x:Name="MenuClose" Width="50" Visibility="Collapsed" Height="50" Foreground="White" Click="MenuClose_Click" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Padding="0" Style="{DynamicResource MaterialDesignFlatButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="ArrowLeft" Width="50" Height="50"></materialDesign:PackIcon>
-                </Button>
-                <Button x:Name="MenuOpen" Width="50" Height="50" Foreground="White" Click="MenuOpen_Click" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Padding="0" Style="{DynamicResource MaterialDesignFlatButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0" Cursor="Hand">
-                    <materialDesign:PackIcon Kind="Menu" Width="50" Height="50"></materialDesign:PackIcon>
-                </Button>
-            </Grid>
-            <Grid Margin="0,120,0,0">
-                <ListView Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="ViewDashboard" Height="30" Width="30" Margin="-6, 0,2,0"></materialDesign:PackIcon>
-                            <TextBlock Text="Головна" Margin="7, 1" FontSize="23" FontWeight="Bold"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Ticket" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
-                            <TextBlock Text="Квитки" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="TicketAccount" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
-                            <TextBlock Text="Мої квитки" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Schedule" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
-                            <TextBlock Text="Розписання" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Selfie" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
-                            <TextBlock Text="Профіль" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem Margin="0,80,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Github" Height="30" Width="30"  Margin="-6, 0,3,0"></materialDesign:PackIcon>
-                            <TextBlock Text="GitHub" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
-                </ListView>
-                
-            </Grid>
-           
-
-        </Grid>
-        
-    </Grid>
+        Title="WindowUser" Height="700" Width="1220" WindowStyle="SingleBorderWindow">
+    
+    <Frame x:Name="MainFrame" Background="White" NavigationUIVisibility="Hidden"/>
+   
+    
 </Window>
