@@ -10,7 +10,7 @@ namespace Kassa
         public int Plackart_Count { get; set; }
         public int Kupe_Count { get; set; }
         public int Lux_Count { get; set; }
-        ..
+        
 
         public Train(string Stations, DateTime dateTime, int Plackart, int Kupe, int Lux)
         {
