@@ -11,9 +11,11 @@ namespace WpfApp2
     public class ApplicationContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Train> Trains { get; set; }
+        public DbSet<Station> Stations { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder ob)
         {
-            ob.UseSqlite(@"Data Source=\Flowers.db");
+            ob.UseSqlite(@"Data Source=C:\Users\BeVL\source\repos\Kassa\Kassa\Kassa.db");
         }
     }
 }

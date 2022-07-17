@@ -1,6 +1,8 @@
-﻿
+﻿using System.Collections.Generic;
 using System.Linq;
 using WpfApp2;
+using System.Linq;
+using System;
 
 namespace Kassa
 {
@@ -63,8 +65,35 @@ namespace Kassa
                     return false;
         }
 
+        public List<Train> SetTopTrains()
+        {
+            List<Train> list = new List<Train>();
+            list = bd.Trains.ToList();
+            list.OrderByDescending(s => s.CountSell);
+            if(list.Count < 5)
+                return list.GetRange(0, list.Count);
+            else
+                return list.GetRange(0, 5);
+        }
 
+        public List<Station> GetStations()
+        {
+            return bd.Stations.ToList();
+        }
+        public List<Station> GetStationsOnRoute(string stations)
+        {
+            List<int> list = stations.Split('-').Select(x => Convert.ToInt32(x)).ToList();
+            List<Station> sts = new List<Station>();
+            foreach (int i in list)
+            {
+                sts.Add(bd.Stations.Where(s => s.ID == i).FirstOrDefault());
+            }
+            return sts;
+        }
 
-
+        public List<Train> GetTrains()
+        {
+            return bd.Trains.ToList();
+        }
     }
 }

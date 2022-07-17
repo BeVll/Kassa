@@ -109,16 +109,74 @@
 
         </Grid>
         <Grid Width="1050" Height="550" Margin="50,50,0,0" Background="#F0F8FF" Panel.ZIndex="0">
-            <Border Width="380" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 20" Background="#2196F3" Height="40">
-                <TextBlock Foreground="White" Text="Подорожуй популярними напрямками" Padding="0,2,0,0" FontSize="19" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Bahnschrift"></TextBlock>
+            <Border Width="420" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 20" Background="#2196F3" Height="50">
+                <TextBlock Foreground="White" Text="Подорожуй популярними напрямками" Padding="0,2,0,0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Bahnschrift"></TextBlock>
             </Border>
-            <ListView Width="600" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15, 80" Height="40">
+            <ListView  x:Name="toptrains" d:ItemsSource="{d:SampleData ItemCount=4}" VerticalContentAlignment="Top"  Width="1050" Padding="0" Height="55" Margin="5, 85, 0, 0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left" SelectionChanged="toptrains_SelectionChanged">
                 
+                    <ListView.ItemTemplate>
+                    
+                    <DataTemplate>
+
+                        <Border HorizontalAlignment="Stretch" Background="#1A76C1" CornerRadius="15"  MinWidth="100" MaxWidth="300" Height="40" Margin="0, 0">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding FirstStation}" TextAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,2" FontSize="18" Foreground="White" FontWeight="Medium"/>
+                                <TextBlock Text="↔" TextAlignment="Center" VerticalAlignment="Center" Margin="6,0,0,2" FontSize="18" Foreground="White" FontWeight="Medium"/>
+                                    <TextBlock Text="{Binding LastStation}" TextAlignment="Left" VerticalAlignment="Center" Margin="8,0,8,2" FontSize="18" Foreground="White" FontWeight="Medium"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                       
+                    </DataTemplate>
+                   
+                </ListView.ItemTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+            <Border Width="1050" Height="2" Background="#2196F3" VerticalAlignment="Top" Margin="0,155">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="30" Color="#2196F3" ShadowDepth="0"/>
+                </Border.Effect>
+            </Border>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="45,235,0,0" VerticalAlignment="Top" >
+                <ComboBox x:Name="StartPunkt" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint ="Звідки" Width="320"  Height="50"/>
+                <Button Content="↕" Style="{DynamicResource MaterialDesignFlatButton}" Width="30" FontSize="40" Height="30" Padding="0,-17,0,0" Margin="0,10" VerticalContentAlignment="Top" FontWeight="Black" Foreground="#1A76C1" FontFamily="Segoe UI"/>
+                <ComboBox x:Name="LastPunkt" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint ="Куди" Width="320" Margin="0,0"  Height="50"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="45,415,0,0" VerticalAlignment="Top" >
+
+                <DatePicker x:Name="dtpicker" Width="170" Height="50" Style="{DynamicResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint ="Дата відправлення"/>
+                <Button Content="Пошук" Height="50" Width="120" Margin="30,0,0,0"/>
+            </StackPanel>
+            <ListView x:Name="foundtrains" d:ItemsSource="{d:SampleData ItemCount=500}" Width="560" Height="350" Margin="0, 180, 20, 0" HorizontalAlignment="Right" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="530" MinHeight="70" MaxHeight="300" Margin="0, 0">
+                            <TextBlock x:Name="titleflowers" Width="450" MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text="{Binding ListFlowers}" FontWeight="Bold" FontSize="20" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
+                            <TextBlock Width="125" Margin="30, 0, 0, 15" Text="{Binding DateOfSale}" TextAlignment="Right" FontSize="14" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
+                            <TextBlock Width="125" Margin="30, 0, 0, 36" Text="{Binding Price}" TextAlignment="Right" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
+                            <Border x:Name="TopBorder" Background="#2035F5" Margin="0,0,0,10" Height="2" Width="660" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
+
+
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="30" Color="LightBlue" ShadowDepth="0"></DropShadowEffect>
+                                </Border.Effect>
+
+                            </Border>
+                        </Grid>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3"></DropShadowEffect>
             </Grid.Effect>
         </Grid>
+        
     </Grid>
 </Page>
 
