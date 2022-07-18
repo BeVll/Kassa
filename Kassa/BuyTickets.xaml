@@ -150,16 +150,26 @@
             <StackPanel Orientation="Horizontal" Margin="45,415,0,0" VerticalAlignment="Top" >
 
                 <DatePicker x:Name="dtpicker" Width="170" Height="50" Style="{DynamicResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint ="Дата відправлення"/>
-                <Button Content="Пошук" Height="50" Width="120" Margin="30,0,0,0"/>
+                <Button Content="Пошук" Height="50" Width="120" Margin="30,0,0,0" Click="Button_Click"/>
             </StackPanel>
             <ListView x:Name="foundtrains" d:ItemsSource="{d:SampleData ItemCount=500}" Width="560" Height="350" Margin="0, 180, 20, 0" HorizontalAlignment="Right" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="530" MinHeight="70" MaxHeight="300" Margin="0, 0">
-                            <TextBlock x:Name="titleflowers" Width="450" MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text="{Binding ListFlowers}" FontWeight="Bold" FontSize="20" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
-                            <TextBlock Width="125" Margin="30, 0, 0, 15" Text="{Binding DateOfSale}" TextAlignment="Right" FontSize="14" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
-                            <TextBlock Width="125" Margin="30, 0, 0, 36" Text="{Binding Price}" TextAlignment="Right" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
-                            <Border x:Name="TopBorder" Background="#2035F5" Margin="0,0,0,10" Height="2" Width="660" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
+                        <Grid Width="530" MinHeight="90" MaxHeight="300" Margin="0, 0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                            <TextBlock x:Name="fstat"  MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text="{Binding FirstStation}" FontWeight="Bold" FontSize="20" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
+                            <TextBlock  MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text=" - " FontWeight="Bold" FontSize="20" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
+                            <TextBlock x:Name="lstat"  MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text="{Binding LastStation}" FontWeight="Bold" FontSize="20" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
+                            </StackPanel>
+                            <TextBlock x:Name="titleflowers" Width="450" MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text="{Binding Number, StringFormat={}#{0}}" FontWeight="SemiBold" FontSize="20" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
+                            <TextBlock Width="145" Margin="30, 0, 0, 15" Text="{Binding TimeStart}" TextAlignment="Right" FontSize="14" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 16">
+                            <TextBlock Width="45" Margin="4,0"  Text="{Binding Plackart_Count,  StringFormat={}П:{0}}" TextAlignment="Right" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
+                            <TextBlock Width="45" Margin="4,0" Text="{Binding Kupe_Count,  StringFormat={}К:{0}}" TextAlignment="Right" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
+                             <TextBlock Width="45" Margin="4,0" Text="{Binding Lux_Count,  StringFormat={}Л:{0}}" TextAlignment="Right" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
+                            </StackPanel>
+
+                                <Border x:Name="TopBorder" Background="#2035F5" Margin="0,0,0,10" Height="2" Width="660" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
 
 
                                 <Border.Effect>

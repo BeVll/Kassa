@@ -26,7 +26,7 @@ namespace Kassa
             InitializeComponent();
             controller = new Controller();
             dtpicker.DisplayDateStart = DateTime.Now;
-            List<Train> trains = controller.SetTopTrains();
+            List<TrainUPD> trains = controller.SetTopTrains();
             toptrains.ItemsSource = trains;    
             StartPunkt.ItemsSource = controller.GetStations();
             StartPunkt.DisplayMemberPath = "Name";
@@ -54,22 +54,54 @@ namespace Kassa
 
         private void toptrains_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Train t = toptrains.SelectedItem as Train;
+            TrainUPD t = toptrains.SelectedItem as TrainUPD;
             List<Station> stations = controller.GetStations();
             Station st = stations.Where(s => s.Name == t.FirstStation).FirstOrDefault();
             Station st2 = stations.Where(s => s.Name == t.LastStation).FirstOrDefault();
             StartPunkt.SelectedItem = st;
             LastPunkt.SelectedItem= st2;
-            dtpicker.SelectedDate = t.TimeStart;
+            dtpicker.SelectedDate = Convert.ToDateTime(t.Data);
 
-            List<Station> sts = controller.GetStationsOnRoute(t.Stations);
-            List<Train> trs = controller.GetTrains();
-            List<List<Station>> trs_stations = new List<List<Station>>();
-            for (int i = 0; i < trs.Count; i++)
-            {
-                trs_stations.Add(controller.GetStationsOnRoute(trs[i].Stations));
-            }
+            
 
+            //List<Station> sts = controller.GetStationsOnRoute(t.Stations);
+            //List<Train> trs = controller.GetTrains();
+            //List<List<Station>> trs_stations = new List<List<Station>>();
+            //for (int i = 0; i < trs.Count; i++)
+            //{
+            //    trs_stations.Add(controller.GetStationsOnRoute(trs[i].Stations));
+            //}
+             
+
+            //foreach(List<Station> stations1 in trs_stations)
+            //{
+            //    Station s = stations1.Find(s => s.Name == t.FirstStation);
+            //    if (s != null)
+            //    {
+            //        int index = stations1.IndexOf(s);
+            //        stations1.RemoveRange(0, index + 1);
+            //        s = stations1.Find(s => s.Name == t.LastStation);
+            //        if (s == null)
+            //        {
+            //            int i = trs_stations.IndexOf(stations1);
+            //            trs_stations.RemoveAt(i);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        int i = trs_stations.IndexOf(stations1);
+            //        trs.RemoveAt(i);
+            //    }
+            //}
+            //foundtrains.ItemsSource = trs;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            foundtrains.ItemsSource = new List<TrainUPD>();
+
+            DateTime dt = Convert.ToDateTime(dtpicker.SelectedDate);
+            foundtrains.ItemsSource = controller.GetFoundTrains(StartPunkt.Text, LastPunkt.Text, dt.ToShortDateString());
         }
     }
 }
