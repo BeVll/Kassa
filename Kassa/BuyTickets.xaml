@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1220"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      Title="MainUser" Background="White">
+      Title="Пошук потягу" Background="White">
     <Page.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
@@ -37,12 +37,13 @@
 
     <Grid>
         <Grid MinWidth = "1220" MaxWidth="1920" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" Background="AliceBlue" Width="1220">
-            <TextBlock Text="Придбати квитки" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"></TextBlock>
+            <TextBlock Text="Пошук потягу" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"></TextBlock>
             <Grid Width="120" HorizontalAlignment="Right" Background="#1A76C1">
 
-                <TextBlock Text="BeVl" Foreground="White" Height="50"  Background="#1A76C1" Padding="8,7,8,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="25" TextAlignment="Right" FontWeight="DemiBold" Margin="0,0,35,0"></TextBlock>
+                <TextBlock x:Name="Profile" Text="BeVl" Foreground="White" Height="50"  Background="#1A76C1" Padding="8,7,8,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="25" TextAlignment="Right" FontWeight="DemiBold" Margin="0,0,35,0"></TextBlock>
                 <materialDesign:PopupBox HorizontalContentAlignment="Left" Foreground="White"  Height="45" Margin="81,2,0,2">
                     <StackPanel HorizontalAlignment="Left">
+                        <Button x:Name="Balance" Content="Баланс: "/>
                         <Button Content="Профіль"/>
                         <Button Content="Мої квитки"/>
                         <Separator/>
@@ -142,34 +143,52 @@
                     <DropShadowEffect BlurRadius="30" Color="#2196F3" ShadowDepth="0"/>
                 </Border.Effect>
             </Border>
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="45,235,0,0" VerticalAlignment="Top" >
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="25,235,0,0" VerticalAlignment="Top" >
                 <ComboBox x:Name="StartPunkt" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint ="Звідки" Width="320"  Height="50"/>
                 <Button Content="↕" Style="{DynamicResource MaterialDesignFlatButton}" Width="30" FontSize="40" Height="30" Padding="0,-17,0,0" Margin="0,10" VerticalContentAlignment="Top" FontWeight="Black" Foreground="#1A76C1" FontFamily="Segoe UI"/>
                 <ComboBox x:Name="LastPunkt" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint ="Куди" Width="320" Margin="0,0"  Height="50"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="45,415,0,0" VerticalAlignment="Top" >
+            <StackPanel Orientation="Horizontal" Margin="25,415,0,0" VerticalAlignment="Top" >
 
                 <DatePicker x:Name="dtpicker" Width="170" Height="50" Style="{DynamicResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint ="Дата відправлення"/>
                 <Button Content="Пошук" Height="50" Width="120" Margin="30,0,0,0" Click="Button_Click"/>
             </StackPanel>
-            <ListView x:Name="foundtrains" d:ItemsSource="{d:SampleData ItemCount=500}" Width="560" Height="350" Margin="0, 180, 20, 0" HorizontalAlignment="Right" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            <ListView x:Name="foundtrains" d:ItemsSource="{d:SampleData ItemCount=500}" Width="640" Height="350" Margin="0, 180, 20, 0" HorizontalAlignment="Right" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionChanged="foundtrains_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="530" MinHeight="90" MaxHeight="300" Margin="0, 0">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-                            <TextBlock x:Name="fstat"  MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text="{Binding FirstStation}" FontWeight="Bold" FontSize="20" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
-                            <TextBlock  MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text=" - " FontWeight="Bold" FontSize="20" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
-                            <TextBlock x:Name="lstat"  MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text="{Binding LastStation}" FontWeight="Bold" FontSize="20" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
+                        <Grid Width="610" MinHeight="90" MaxHeight="300" Margin="0, 0">
+                            <Border Background="#2196F3" Height="110" Width="2" Margin="0,0,0,10" HorizontalAlignment="Left">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="30" Color="Aqua" ShadowDepth="0"/>
+                                </Border.Effect>
+                            </Border>
+                            <TextBlock x:Name="titleflowers" Width="150" MinHeight="30" MaxHeight="300" TextAlignment="Left" Text="{Binding Number, StringFormat={}#{0}}" FontWeight="SemiBold" FontSize="22" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="10, 50,0,0" VerticalAlignment="Top"></TextBlock>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Width="250" HorizontalAlignment="Left" Margin="10,0,0,5">
+                            <TextBlock x:Name="fstat"  MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text="{Binding FirstStation}" FontWeight="Bold" FontSize="18" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
+                            <TextBlock  MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text=" - " FontWeight="Bold" FontSize="18" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
+                            <TextBlock x:Name="lstat"  MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text="{Binding LastStation}" FontWeight="Bold" FontSize="18" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
                             </StackPanel>
-                            <TextBlock x:Name="titleflowers" Width="450" MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text="{Binding Number, StringFormat={}#{0}}" FontWeight="SemiBold" FontSize="20" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
-                            <TextBlock Width="145" Margin="30, 0, 0, 15" Text="{Binding TimeStart}" TextAlignment="Right" FontSize="14" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 16">
-                            <TextBlock Width="45" Margin="4,0"  Text="{Binding Plackart_Count,  StringFormat={}П:{0}}" TextAlignment="Right" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
-                            <TextBlock Width="45" Margin="4,0" Text="{Binding Kupe_Count,  StringFormat={}К:{0}}" TextAlignment="Right" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
-                             <TextBlock Width="45" Margin="4,0" Text="{Binding Lux_Count,  StringFormat={}Л:{0}}" TextAlignment="Right" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
+                            <Border Background="#2196F3" Height="110" Width="2" Margin="-96,0,0,10">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="30" Color="Aqua" ShadowDepth="0"/>
+                                </Border.Effect>
+                            </Border>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="60,0,0,10">
+                                <TextBlock Width="105" Margin="4,0"  Text="{Binding Departure, StringFormat='yyyy.MM.dd HH:mm'}" TextWrapping="Wrap" TextAlignment="Center"  FontSize="17" FontWeight="Bold" Foreground="#0F0F0F"></TextBlock>
+                                <TextBlock Width="105" Margin="4,15"  Text="{Binding Arrival, StringFormat='yyyy.MM.dd HH:mm'}" TextWrapping="Wrap" TextAlignment="Center" FontSize="17" FontWeight="Bold" Foreground="#0F0F0F"></TextBlock>
+                            </StackPanel>
+                            <Border Background="#2196F3" Height="110" Width="2" Margin="205,0,0,10">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="30" Color="Aqua" ShadowDepth="0"/>
+                                </Border.Effect>
+                            </Border>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="40, 16">
+                            <TextBlock Width="135" Margin="4,0"  Text="{Binding Plackart_Count,  StringFormat={}П:{0}}" TextAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
+                                <TextBlock Width="135" Margin="4,0" Text="{Binding Kupe_Count,  StringFormat={}К:{0}}" TextAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
+                                <TextBlock Width="135" Margin="4,0" Text="{Binding Lux_Count,  StringFormat={}Л:{0}}" TextAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
                             </StackPanel>
 
-                                <Border x:Name="TopBorder" Background="#2035F5" Margin="0,0,0,10" Height="2" Width="660" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
+                            <Border x:Name="TopBorder" Background="#2196F3" Margin="0,0,0,10" Height="2" Width="660" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
 
 
                                 <Border.Effect>

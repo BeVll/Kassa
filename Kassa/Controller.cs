@@ -122,7 +122,7 @@ namespace Kassa
             }
             DateTime dt = Convert.ToDateTime(date);
             List<StationUPD> stationUPDs = new List<StationUPD>();
-           
+            DateTime dt2 = new DateTime(dt.Year, dt.Month, dt.Day);
             for (int i = 0; i < sts.Count; i++)
             {
                 List<string> sttime = times[i].Split('-').ToList();
@@ -132,19 +132,20 @@ namespace Kassa
                 else if(i == sts.Count - 1)
                     timestr = sttime[0].Split(':').ToList();
                 if (i == 0) {
-                    dt.AddHours(Convert.ToInt32(timestr[0]));
-                    dt.AddMinutes(Convert.ToInt32(timestr[1]));
+                    dt = dt.AddHours(Convert.ToInt32(timestr[0]));
+                    dt = dt.AddMinutes(Convert.ToInt32(timestr[1]));
                 }
                 else
                 {
-                    DateTime dt2 = dt;
-                    dt2.AddHours(Convert.ToInt32(timestr[0]));
-                    dt2.AddMinutes(Convert.ToInt32(timestr[1]));
+                    dt2 = new DateTime(dt.Year, dt.Month, dt.Day);
+
+                    dt2 = dt2.AddHours(Convert.ToInt32(timestr[0]));
+                    dt2 = dt2.AddMinutes(Convert.ToInt32(timestr[1]));
                     if (dt2 < dt)
-                        dt.AddDays(1);
+                        dt2 = dt2.AddDays(1);
 
                 }
-                stationUPDs.Add(new StationUPD(sts[i].ID, sts[i].Name, sttime[0], sttime[1], dt.ToShortDateString()));
+                stationUPDs.Add(new StationUPD(sts[i].ID, sts[i].Name, sttime[0], sttime[1], dt2.ToShortDateString()));
             }
             return stationUPDs;
         }
@@ -158,6 +159,13 @@ namespace Kassa
             foreach(StationUPD stat in stationUPDs)
                 stations.Add(new Station(stat.ID, stat.Name));
             return stations;
+        }
+
+        public void AddSell(int plac, int kupe, int lux, int user_id, int train_id, string Start, string Last)
+        {
+            Sell sell = new Sell(user_id, plac, kupe, lux, train_id, Start, Last);
+            bd.Sell.Add(sell);
+            bd.SaveChanges();
         }
 
         public string GetStationsTimeOnRoute(List<StationUPD> stationUPDs)
@@ -193,7 +201,7 @@ namespace Kassa
         {
 
             List <StationUPD> stationUPDs = GetStationsOnRoute(train.Stations, train.StationsTime, train.Data);
-            TrainUPD trainUPD = new TrainUPD(train.ID, train.Number, train.FirstStation, train.LastStation, stationUPDs, train.Data, train.Plackart_Count, train.Kupe_Count, train.Lux_Count, train.CountSell);
+            TrainUPD trainUPD = new TrainUPD(train.ID, train.Number, train.FirstStation, train.LastStation, stationUPDs, train.Data, train.Plackart_Count, train.Kupe_Count, train.Lux_Count, train.CountSell, Convert.ToDateTime(stationUPDs[0].Date), Convert.ToDateTime(stationUPDs[stationUPDs.Count-1].Date));
             return trainUPD;
         }
 
@@ -210,8 +218,10 @@ namespace Kassa
             foreach (TrainUPD trainUPD in foundTrains)
             {
                 StationUPD s1 = trainUPD.Stations.Find(s => s.Name == StartS);
+                
                 if (s1 != null)
                 {
+                    trainUPD.Departure = Convert.ToDateTime(s1.Date + " " + s1.Departure);
                     int index = trainUPD.Stations.IndexOf(s1);
                     trainUPD.Stations.RemoveRange(0, index + 1);
                     StationUPD s = trainUPD.Stations.Find(s => s.Name == LastS);
@@ -221,6 +231,7 @@ namespace Kassa
                     }
                     else
                     {
+                        trainUPD.Arrival = Convert.ToDateTime(s.Date + " " + s.Arrival);
                         if (Convert.ToDateTime(s1.Date) != Convert.ToDateTime(Date))
                         {
                             foundTrainsLast.Remove(trainUPD);

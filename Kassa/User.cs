@@ -9,6 +9,10 @@ namespace Kassa
         public string Type { get; set; } // "User" or "Cashier"
         public double Balance { get; set; }
        
+        public User()
+        {
+
+        }
         public User(string login, string password, string type, double balance)
         {
             Login = login;

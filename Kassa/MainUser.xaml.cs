@@ -20,9 +20,17 @@ namespace Kassa
     /// </summary>
     public partial class MainUser : Page
     {
+        private User _user;
         public MainUser()
         {
             InitializeComponent();
+        }
+        public MainUser(User user)
+        {
+            _user = user;
+            InitializeComponent();
+            Profile.Text = _user.Login;
+            Balance.Content = "Баланс: " + _user.Balance.ToString();
         }
         private void MenuOpen_Click(object sender, RoutedEventArgs e)
         {

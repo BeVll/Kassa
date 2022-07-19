@@ -1,0 +1,156 @@
+﻿<Page x:Class="Kassa.TrainBuy"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Kassa"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1220"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Title="Купівля квитка" Background="White">
+    <Page.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="250"/>
+
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="250"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="50"/>
+
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuOpen">
+            <BeginStoryboard Storyboard="{DynamicResource MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuClose">
+            <BeginStoryboard Storyboard="{DynamicResource MenuClose}"/>
+        </EventTrigger>
+    </Page.Triggers>
+
+
+    <Grid>
+        <Grid MinWidth = "1220" MaxWidth="1920" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" Background="AliceBlue" Width="1220">
+            <TextBlock Text="Придбати квитки" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"></TextBlock>
+            <Grid Width="120" HorizontalAlignment="Right" Background="#1A76C1">
+
+                <TextBlock Text="BeVl" Foreground="White" Height="50"  Background="#1A76C1" Padding="8,7,8,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="25" TextAlignment="Right" FontWeight="DemiBold" Margin="0,0,35,0"></TextBlock>
+                <materialDesign:PopupBox HorizontalContentAlignment="Left" Foreground="White"  Height="45" Margin="81,2,0,2">
+                    <StackPanel HorizontalAlignment="Left">
+                        <Button x:Name="Balance" Content="Баланс: "/>
+                        <Button Content="Профіль"/>
+                        <Button Content="Мої квитки"/>
+                        <Separator/>
+                        <Button Content="Вийти"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+            </Grid>
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3" Direction="180"></DropShadowEffect>
+            </Grid.Effect>
+        </Grid>
+        <Grid x:Name="GridMenu" Width="50" HorizontalAlignment="Left" Background="#2196F3" Panel.ZIndex="1">
+            <Grid Height="120" VerticalAlignment="Top" Background="#1A76C1">
+                <Button x:Name="MenuClose" Width="50" Visibility="Collapsed" Height="50" Foreground="White" Click="MenuClose_Click" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Padding="0" Style="{DynamicResource MaterialDesignFlatButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0" Cursor="Hand">
+                    <materialDesign:PackIcon Kind="ArrowLeft" Width="50" Height="50"></materialDesign:PackIcon>
+                </Button>
+                <Button x:Name="MenuOpen" Width="50" Height="50" Foreground="White" Click="MenuOpen_Click" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Padding="0" Style="{DynamicResource MaterialDesignFlatButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0" Cursor="Hand">
+                    <materialDesign:PackIcon Kind="Menu" Width="50" Height="50"></materialDesign:PackIcon>
+                </Button>
+            </Grid>
+            <Grid Margin="0,120,0,0">
+                <ListView x:Name="MenuList" Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="ListView_SelectionChanged">
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ViewDashboard" Height="30" Width="30" Margin="-6, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Головна" Margin="7, 1" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal" IsEnabled="False" >
+                            <materialDesign:PackIcon Kind="Ticket" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Квитки" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="TicketAccount" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Мої квитки" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Schedule" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Розписання" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Selfie" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Профіль" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Margin="0,80,0,0" >
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="Github" Height="30" Width="30"  Margin="-6, 0,3,0"></materialDesign:PackIcon>
+                            <TextBlock Text="GitHub" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListView>
+
+            </Grid>
+
+
+        </Grid>
+        <Grid Width="950" Height="450" Margin="50,50,0,0" Background="#F0F8FF" Panel.ZIndex="0">
+            <Grid Height="90" VerticalAlignment="Top" Background="#2196F3">
+
+                <TextBlock x:Name="TrainNum" Text="#12305" HorizontalAlignment="Left" FontSize="25" FontWeight="Bold" Margin="15,28" Foreground="#FFFFFF"/>
+                <Border Height="40" MinWidth="150" MaxWidth="350" Background="#1A76C1" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,0" CornerRadius="25">
+                    <StackPanel MinWidth="150" MaxWidth="350" Orientation="Horizontal" HorizontalAlignment="Center" Margin="30,0">
+                        <TextBlock x:Name="FStat" Text="Київ" HorizontalAlignment="Left" TextAlignment="Center" FontSize="25" FontWeight="Bold" Margin="0,2,0,0" Foreground="#FAFCFE"/>
+                        <TextBlock Text=" - " HorizontalAlignment="Center" FontSize="25" FontWeight="Bold" Margin="0,2,0,0" Foreground="#FAFCFE"/>
+                        <TextBlock x:Name="LStat" Text="Львів" HorizontalAlignment="Right" FontSize="25" FontWeight="Bold" Margin="0,2,0,0" Foreground="#FAFCFE"/>
+                    </StackPanel>
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="20" ShadowDepth="0" Color="Aqua"/>
+                    </Border.Effect>
+                </Border>
+
+            </Grid>
+            <Grid Height="359" VerticalAlignment="Bottom">
+                <StackPanel Orientation="Vertical" Margin="20, 20" VerticalAlignment="Top">
+                    <TextBlock x:Name="NomerTrain" Text="Номер поїзда: 15606" materialDesign:HintAssist.Hint ="Пункт відправлення" FontSize="22" Margin="20,20,0,0" AllowDrop="True" FontFamily="Bahnschrift Condensed"/>
+                    <TextBlock x:Name="StartP" Text="Пункт відправлення: Київ" materialDesign:HintAssist.Hint ="Пункт відправлення" FontSize="22" Margin="20,10,0,0" AllowDrop="True" FontFamily="Bahnschrift Condensed"/>
+                    <TextBlock x:Name="LastP" Text="Пункт прибуття: Луцьк" materialDesign:HintAssist.Hint ="Пункт відправлення" FontSize="22" Margin="20, 10" AllowDrop="True" FontFamily="Bahnschrift Condensed"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="150, 20" VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <TextBlock x:Name="TimeSt" Text="Час відправлення: 20.07.2022 17:00" materialDesign:HintAssist.Hint ="Пункт відправлення" FontSize="22" Margin="20,20,0,0" AllowDrop="True" FontFamily="Bahnschrift Condensed"/>
+                    <TextBlock x:Name="TimeLs" Text="Час прибуття: 21.07.2022 13:00" materialDesign:HintAssist.Hint ="Пункт відправлення" FontSize="22" Margin="20,10,0,0" AllowDrop="True" FontFamily="Bahnschrift Condensed"/>
+                    <TextBlock x:Name="TimeTotal" Text="Тривалість: 20:00" materialDesign:HintAssist.Hint ="Пункт відправлення" FontSize="22" Margin="20, 10" AllowDrop="True" FontFamily="Bahnschrift Condensed"/>
+                </StackPanel>
+                <Grid Background="#D9E1E7" Height="100" Width="950" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                    <TextBlock Text="Плацкарт"  HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="17" Margin="10,8,0 0" AllowDrop="True" FontFamily="Bahnschrift"/>
+                    <TextBox x:Name="Plac" Text="" FontSize="13" Padding="0,2,2,0" TextAlignment="Center" Width="30" PreviewTextInput="NumberValidationTextBox" Style="{DynamicResource MaterialDesignOutlinedTextBox}" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="99,5,0,0" TextChanged="TextBox_TextChanged"/>
+                    <TextBlock Text="Купе"    HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="17" Margin="46,0,0,0" AllowDrop="True" FontFamily="Bahnschrift"/>
+                    <TextBox x:Name="Kupe" Width="30" Padding="0,2,2,0" TextAlignment="Center" PreviewTextInput="NumberValidationTextBox" Style="{DynamicResource MaterialDesignOutlinedTextBox}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="99,0,0,0" TextChanged="TextBox_TextChanged"/>
+                    <TextBlock Text="Люкс"   HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="17" Margin="41,0,0,8" AllowDrop="True" FontFamily="Bahnschrift"/>
+                    <TextBox x:Name="Lux" Width="30" Padding="0,2,2,0" TextAlignment="Center" PreviewTextInput="NumberValidationTextBox" Foreground="#FFFFFF"  Style="{DynamicResource MaterialDesignOutlinedTextBox}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Bottom" Margin="99,0,0,6" TextChanged="TextBox_TextChanged"/>
+                    <TextBlock Text="Всього: "   HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="17" Margin="41,15,100,8" AllowDrop="True" FontFamily="Bahnschrift"/>
+                    <TextBlock x:Name="Summary" Text="0грн"   HorizontalAlignment="Right" TextAlignment="Left" Width="80" VerticalAlignment="Top" FontSize="17" Margin="41,15,15,8" AllowDrop="True" FontFamily="Bahnschrift"/>
+                    <Button Content="Купити" FontSize="23" Height="45" Width="150" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15, 10" Click="Button_Click"/>
+                </Grid>
+            </Grid>
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3"></DropShadowEffect>
+            </Grid.Effect>
+        </Grid>
+
+    </Grid>
+</Page>

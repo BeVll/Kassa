@@ -21,6 +21,9 @@ namespace Kassa
     public partial class BuyTickets : Page
     {
         private Controller controller;
+        private User user;
+        private string St;
+        private string Ls;
         public BuyTickets()
         {
             InitializeComponent();
@@ -33,6 +36,41 @@ namespace Kassa
             LastPunkt.ItemsSource = controller.GetStations();
             LastPunkt.DisplayMemberPath = "Name";
             dtpicker.SelectedDate = DateTime.Now;
+        }
+
+        public BuyTickets(User user)
+        {
+            this.user = user;
+            InitializeComponent();
+            controller = new Controller();
+            dtpicker.DisplayDateStart = DateTime.Now;
+            List<TrainUPD> trains = controller.SetTopTrains();
+            toptrains.ItemsSource = trains;
+            StartPunkt.ItemsSource = controller.GetStations();
+            StartPunkt.DisplayMemberPath = "Name";
+            LastPunkt.ItemsSource = controller.GetStations();
+            LastPunkt.DisplayMemberPath = "Name";
+            dtpicker.SelectedDate = DateTime.Now;
+            Profile.Text = user.Login;
+            Balance.Content = "Баланс: " + this.user.Balance.ToString();
+        }
+        public BuyTickets(User user, TrainUPD train)
+        {
+            this.user = user;
+            InitializeComponent();
+            controller = new Controller();
+            dtpicker.DisplayDateStart = DateTime.Now;
+            List<TrainUPD> trains = controller.SetTopTrains();
+            toptrains.ItemsSource = trains;
+            StartPunkt.ItemsSource = controller.GetStations();
+            StartPunkt.DisplayMemberPath = "Name";
+            LastPunkt.ItemsSource = controller.GetStations();
+            LastPunkt.DisplayMemberPath = "Name";
+            Profile.Text = user.Login;
+            StartPunkt.SelectedItem = controller.GetStations().Where(s => s.Name == train.FirstStation).FirstOrDefault();
+            LastPunkt.SelectedItem = controller.GetStations().Where(s => s.Name == train.LastStation).FirstOrDefault();
+            dtpicker.SelectedDate = train.Departure;
+            Balance.Content = "Баланс: " + this.user.Balance.ToString();
         }
         private void MenuOpen_Click(object sender, RoutedEventArgs e)
         {
@@ -61,47 +99,21 @@ namespace Kassa
             StartPunkt.SelectedItem = st;
             LastPunkt.SelectedItem= st2;
             dtpicker.SelectedDate = Convert.ToDateTime(t.Data);
-
-            
-
-            //List<Station> sts = controller.GetStationsOnRoute(t.Stations);
-            //List<Train> trs = controller.GetTrains();
-            //List<List<Station>> trs_stations = new List<List<Station>>();
-            //for (int i = 0; i < trs.Count; i++)
-            //{
-            //    trs_stations.Add(controller.GetStationsOnRoute(trs[i].Stations));
-            //}
-             
-
-            //foreach(List<Station> stations1 in trs_stations)
-            //{
-            //    Station s = stations1.Find(s => s.Name == t.FirstStation);
-            //    if (s != null)
-            //    {
-            //        int index = stations1.IndexOf(s);
-            //        stations1.RemoveRange(0, index + 1);
-            //        s = stations1.Find(s => s.Name == t.LastStation);
-            //        if (s == null)
-            //        {
-            //            int i = trs_stations.IndexOf(stations1);
-            //            trs_stations.RemoveAt(i);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        int i = trs_stations.IndexOf(stations1);
-            //        trs.RemoveAt(i);
-            //    }
-            //}
-            //foundtrains.ItemsSource = trs;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             foundtrains.ItemsSource = new List<TrainUPD>();
-
+            St = StartPunkt.Text;
+            Ls = LastPunkt.Text;
             DateTime dt = Convert.ToDateTime(dtpicker.SelectedDate);
             foundtrains.ItemsSource = controller.GetFoundTrains(StartPunkt.Text, LastPunkt.Text, dt.ToShortDateString());
+        }
+
+        private void foundtrains_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            user = new User();
+            NavigationService.Navigate(new TrainBuy(user, foundtrains.SelectedItem as TrainUPD, St, Ls));
         }
     }
 }

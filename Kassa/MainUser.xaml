@@ -41,9 +41,10 @@
             <TextBlock Text="Головна" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"></TextBlock>
             <Grid Width="120" HorizontalAlignment="Right" Background="#1A76C1">
 
-                <TextBlock Text="BeVl" Foreground="White" Height="50"  Background="#1A76C1" Padding="8,7,8,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="25" TextAlignment="Right" FontWeight="DemiBold" Margin="0,0,35,0"></TextBlock>
+                <TextBlock x:Name = "Profile" Text="BeVl" Foreground="White" Height="50"  Background="#1A76C1" Padding="8,7,8,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="25" TextAlignment="Right" FontWeight="DemiBold" Margin="0,0,35,0"></TextBlock>
                 <materialDesign:PopupBox HorizontalContentAlignment="Left" Foreground="White"  Height="45" Margin="81,2,0,2">
                     <StackPanel HorizontalAlignment="Left">
+                        <Button x:Name="Balance" Content="Баланс: "/>
                         <Button Content="Профіль"/>
                         <Button Content="Мої квитки"/>
                         <Separator/>

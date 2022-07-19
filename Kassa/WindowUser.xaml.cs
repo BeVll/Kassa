@@ -29,7 +29,7 @@ namespace Kassa
         {
             InitializeComponent();
             this.user = user;
-           
+            MainFrame.Content = new MainUser(user);
         }
 
         

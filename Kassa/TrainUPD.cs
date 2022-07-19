@@ -18,11 +18,13 @@ namespace Kassa
         public int Kupe_Count { get; set; }
         public int Lux_Count { get; set; }
         public int CountSell { get; set; }
+        public DateTime Departure { get; set; }
+        public DateTime Arrival { get; set; }
         public TrainUPD()
         {
 
         }
-        public TrainUPD(string number, string firstStation, string lastStation, List<StationUPD> stations, string timeStart, int plackart_Count, int kupe_Count, int lux_Count, int countSell)
+        public TrainUPD(string number, string firstStation, string lastStation, List<StationUPD> stations, string timeStart, int plackart_Count, int kupe_Count, int lux_Count, int countSell, DateTime departure, DateTime arrival)
         {
             Number = number;
             FirstStation = firstStation;
@@ -33,8 +35,10 @@ namespace Kassa
             Kupe_Count = kupe_Count;
             Lux_Count = lux_Count;
             CountSell = countSell;
+            Departure = departure;
+            Arrival = arrival;
         }
-        public TrainUPD(int id, string number, string firstStation, string lastStation, List<StationUPD> stations, string timeStart, int plackart_Count, int kupe_Count, int lux_Count, int countSell)
+        public TrainUPD(int id, string number, string firstStation, string lastStation, List<StationUPD> stations, string timeStart, int plackart_Count, int kupe_Count, int lux_Count, int countSell, DateTime departure, DateTime arrival)
         {
             ID = id;
             Number = number;
@@ -46,6 +50,8 @@ namespace Kassa
             Kupe_Count = kupe_Count;
             Lux_Count = lux_Count;
             CountSell = countSell;
+            Departure = departure;
+            Arrival = arrival;
         }
     }
 }
