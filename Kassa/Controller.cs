@@ -161,12 +161,23 @@ namespace Kassa
             return stations;
         }
 
-        public bool AddSell(int plac, int kupe, int lux, int user_id, int train_id, string Start, string Last)
+        public void AddTrain(Train train)
+        {
+            bd.Trains.Add(train);
+            bd.SaveChanges();
+        }
+
+        public List<Sell> GetSellsForUser(User user)
+        {
+            return bd.Sell.Where(s => s.User_ID == user.Id).ToList();
+        }
+
+        public bool AddSell(int plac, int kupe, int lux, int user_id, int train_id, string Start, string Last, double price, DateTime st, DateTime ls)
         {
             Train train = bd.Trains.Where(s => s.ID == train_id).FirstOrDefault();
             if (train.Plackart_Count >= plac && train.Kupe_Count >= kupe && train.Lux_Count >= lux)
             {
-                Sell sell = new Sell(user_id, plac, kupe, lux, train_id, Start, Last);
+                Sell sell = new Sell(user_id, plac, kupe, lux, train_id, Start, Last, DateTime.Now, price, st, ls);
                 train.Plackart_Count -= sell.Plackart_Count;
                 train.Kupe_Count -= sell.Kupe_Count;
                 train.Lux_Count -= sell.Lux_Count;

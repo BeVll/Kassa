@@ -5,10 +5,167 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kassa"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="TikcetsList">
+       d:DesignHeight="700" d:DesignWidth="1220"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Title="Пошук потягу" Background="White">
+    <Page.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="250"/>
+
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="250"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="50"/>
+
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuOpen">
+            <BeginStoryboard Storyboard="{DynamicResource MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuClose">
+            <BeginStoryboard Storyboard="{DynamicResource MenuClose}"/>
+        </EventTrigger>
+    </Page.Triggers>
+
 
     <Grid>
-        
+        <Grid MinWidth = "1220" MaxWidth="1920" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" Background="AliceBlue" Width="1220">
+            <TextBlock Text="Пошук потягу" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"></TextBlock>
+            <Grid Width="120" HorizontalAlignment="Right" Background="#1A76C1">
+
+                <TextBlock x:Name="Profile" Text="BeVl" Foreground="White" Height="50"  Background="#1A76C1" Padding="8,7,8,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="25" TextAlignment="Right" FontWeight="DemiBold" Margin="0,0,35,0"></TextBlock>
+                <materialDesign:PopupBox HorizontalContentAlignment="Left" Foreground="White"  Height="45" Margin="81,2,0,2">
+                    <StackPanel HorizontalAlignment="Left">
+                        <Button x:Name="Balance" Content="Баланс: "/>
+                        <Button Content="Профіль"/>
+                        <Button Content="Мої квитки"/>
+                        <Separator/>
+                        <Button Content="Вийти"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+            </Grid>
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3" Direction="180"></DropShadowEffect>
+            </Grid.Effect>
+        </Grid>
+        <Grid x:Name="GridMenu" Width="50" HorizontalAlignment="Left" Background="#2196F3" Panel.ZIndex="1">
+            <Grid Height="120" VerticalAlignment="Top" Background="#1A76C1">
+                <Button x:Name="MenuClose" Width="50" Visibility="Collapsed" Height="50" Foreground="White" Click="MenuClose_Click" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Padding="0" Style="{DynamicResource MaterialDesignFlatButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0" Cursor="Hand">
+                    <materialDesign:PackIcon Kind="ArrowLeft" Width="50" Height="50"></materialDesign:PackIcon>
+                </Button>
+                <Button x:Name="MenuOpen" Width="50" Height="50" Foreground="White" Click="MenuOpen_Click" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Padding="0" Style="{DynamicResource MaterialDesignFlatButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0" Cursor="Hand">
+                    <materialDesign:PackIcon Kind="Menu" Width="50" Height="50"></materialDesign:PackIcon>
+                </Button>
+            </Grid>
+            <Grid Margin="0,120,0,0">
+                <ListView x:Name="MenuList" Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="MenuList_SelectionChanged">
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_6">
+                            <materialDesign:PackIcon Kind="ViewDashboard" Height="30" Width="30" Margin="-6, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Головна" Margin="7, 1" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem x:Name="Tickets">
+                        <StackPanel Orientation="Horizontal" Width="150" Margin="0" MouseDown="StackPanel_MouseDown">
+                            <materialDesign:PackIcon Kind="Ticket" Height="30" Width="30"  Margin="-6, 0,2,0" ></materialDesign:PackIcon>
+                            <TextBlock Text="Квитки" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Padding="0" Height="50">
+                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_1">
+                            <materialDesign:PackIcon Kind="TicketAccount" Height="30" Width="30"  Margin="3, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Мої квитки" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_2">
+                            <materialDesign:PackIcon Kind="Schedule" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Розписання" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_3">
+                            <materialDesign:PackIcon Kind="Selfie" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Профіль" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem x:Name="Admin">
+                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_4">
+                            <materialDesign:PackIcon Kind="Administrator" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Адміністрування" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Margin="0,50,0,0" >
+
+
+                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_5" >
+                            <materialDesign:PackIcon Kind="Github" Height="30" Width="30"  Margin="-6, 0,3,0"></materialDesign:PackIcon>
+                            <TextBlock Text="GitHub" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+
+                    </ListBoxItem>
+                </ListView>
+
+            </Grid>
+
+
+        </Grid>
+        <Grid Width="1050" Height="550" Margin="50,50,0,0" Background="#F0F8FF" Panel.ZIndex="0">
+            <Border Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 20" Background="#2196F3" Height="50">
+                <TextBlock x:Name="MyTickets" Foreground="White" Text="Мої квитки" Padding="0,2,0,0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Bahnschrift"></TextBlock>
+            </Border>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="25,235,0,0" VerticalAlignment="Top" />
+            <StackPanel Orientation="Horizontal" Margin="25,415,0,0" VerticalAlignment="Top" />
+            <ListView x:Name="listtickets" d:ItemsSource="{d:SampleData ItemCount=500}" Width="980" Height="420" Margin="0, 65, 0, 0" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionChanged="foundtrains_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="950" MinHeight="120" MaxHeight="300" Margin="0, 0,0,0">
+                            
+                            <TextBlock x:Name="titleflowers" Width="150" MinHeight="30" MaxHeight="300" TextAlignment="Left" Text="{Binding ID, StringFormat={}#{0}}" FontWeight="SemiBold" FontSize="22" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="10, 50,0,0" VerticalAlignment="Top"></TextBlock>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Width="250" HorizontalAlignment="Left" Margin="10,0,0,5">
+                                <TextBlock x:Name="fstat"  MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text="{Binding StartStat}" FontWeight="Bold" FontSize="18" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
+                                <TextBlock  MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text=" - " FontWeight="Bold" FontSize="18" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
+                                <TextBlock x:Name="lstat"  MinHeight="30" MaxHeight="300" TextWrapping="Wrap" TextAlignment="Left" Text="{Binding LastStat}" FontWeight="Bold" FontSize="18" Foreground="#0F0F0F" HorizontalAlignment="Left" Margin="0, 15" VerticalAlignment="Bottom"></TextBlock>
+                            </StackPanel>
+
+                            <TextBlock Width="106"  Text="{Binding Price,  StringFormat={}{0}грн}" TextWrapping="Wrap" TextAlignment="Center" FontSize="17" Margin="375,20,0,0" FontWeight="SemiBold" Foreground="#0F0F0F" VerticalAlignment="Top"/>
+                            <TextBlock Width="106"  Text="{Binding DateOfSale, StringFormat=yyyy.MM.dd HH:mm}" TextWrapping="Wrap" TextAlignment="Center" FontSize="17" Margin="375,0,0,25"  Foreground="#0F0F0F" VerticalAlignment="Bottom"/>
+                            
+                            <Border Background="#2196F3" Height="110" Width="2" Margin="505,0,0,10">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="30" Color="Aqua" ShadowDepth="0"/>
+                                </Border.Effect>
+                            </Border>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="40, 16">
+                                <TextBlock Width="135" Margin="4,0"  Text="{Binding Plackart_Count,  StringFormat={}П:{0}}" TextAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
+                                <TextBlock Width="135" Margin="4,0" Text="{Binding Kupe_Count,  StringFormat={}К:{0}}" TextAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
+                                <TextBlock Width="135" Margin="4,0" Text="{Binding Lux_Count,  StringFormat={}Л:{0}}" TextAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="#0F0F0F" HorizontalAlignment="Right"  VerticalAlignment="Bottom"></TextBlock>
+                            </StackPanel>
+
+                            <Border x:Name="TopBorder" Background="#2196F3" Margin="0,0,0,10" Height="2" Width="950" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
+
+
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="30" Color="LightBlue" ShadowDepth="0"></DropShadowEffect>
+                                </Border.Effect>
+
+                            </Border>
+                        </Grid>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3"></DropShadowEffect>
+            </Grid.Effect>
+        </Grid>
+
     </Grid>
 </Page>

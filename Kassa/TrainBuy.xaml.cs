@@ -34,7 +34,7 @@ namespace Kassa
         {
             train = trainUPD;
             User = user;
-            User.Balance = 5000;
+            
             InitializeComponent();
             TrainNum.Text = "#" + train.Number;
             FStat.Text = train.FirstStation;
@@ -58,17 +58,16 @@ namespace Kassa
         {
             train = trainUPD;
             User = user;
-            User.Balance = 5000;
             InitializeComponent();
             TrainNum.Text = "#" + train.Number;
             FStat.Text = train.FirstStation;
             LStat.Text = train.LastStation;
-            totaltime = train.Arrival - train.Departure;
+            totaltime = sell.Arrival - sell.Departure;
             NomerTrain.Text = "Поїзд: " + train.Number;
             StartP.Text = "Пункт відправлення: " + startst;
             LastP.Text = "Пункт прибуття: " + lastst;
-            TimeSt.Text = "Час відправлення: " + train.Departure.ToString();
-            TimeLs.Text = "Час прибуття: " + train.Arrival.ToString();
+            TimeSt.Text = "Час відправлення: " + sell.Departure.ToString();
+            TimeLs.Text = "Час прибуття: " + sell.Arrival.ToString();
             TimeTotal.Text = "Тривалість: " + totaltime.Hours.ToString() + ":" + totaltime.Minutes.ToString();
             Balance.Content = "Баланс: " + User.Balance.ToString();
             BuyBut.Visibility = Visibility.Collapsed;
@@ -78,14 +77,14 @@ namespace Kassa
             Plac.IsEnabled = false;
             Kupe.IsEnabled = false;
             Lux.IsEnabled = false;
-            if (train.Arrival > DateTime.Now) {
+            if (sell.Departure > DateTime.Now) {
                 Diisnyi.Text = "Дійсний";
-                Diisnyi.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Red);
+                Diisnyi.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Green);
             }
             else
             {
                 Diisnyi.Text = "Недійсний";
-                Diisnyi.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Green);
+                Diisnyi.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Red);
             }
             type = "ShowSell";
         }
@@ -107,17 +106,71 @@ namespace Kassa
             MenuClose.Visibility = Visibility.Collapsed;
         }
 
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void MenuList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MenuList.SelectedIndex == 0)
-                NavigationService.Navigate(new MainUser());
+                NavigationService.Navigate(new MainUser(User));
+            else if (MenuList.SelectedIndex == 1)
+                NavigationService.Navigate(new BuyTickets(User));
+            else if (MenuList.SelectedIndex == 2)
+                NavigationService.Navigate(new TikcetsList(User));
+            else if (MenuList.SelectedIndex == 3)
+                NavigationService.Navigate(new Schedule(User));
+            else if (MenuList.SelectedIndex == 4)
+                NavigationService.Navigate(new Profile(User));
+            else if (MenuList.SelectedIndex == 5)
+                NavigationService.Navigate(new AdminWin(User));
+            else if (MenuList.SelectedIndex == 6)
+                System.Diagnostics.Process.Start("cmd", "/C start" + " " + "https://github.com/BeVll/Kassa");
+        }
+
+
+
+
+
+        private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new BuyTickets(User));
+        }
+
+        private void StackPanel_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new TikcetsList(User));
+        }
+
+        private void StackPanel_MouseDown_2(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new Schedule(User));
+        }
+
+        private void StackPanel_MouseDown_3(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new Profile(User));
+        }
+
+        private void StackPanel_MouseDown_4(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new AdminWin(User));
+        }
+
+        private void StackPanel_MouseDown_5(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start("cmd", "/C start" + " " + "https://github.com/BeVll/Kassa");
+        }
+
+
+
+        private void StackPanel_MouseDown_6(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new MainUser(User));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            double price = Convert.ToDouble(Summary.Text.Replace("грн", ""));
             if (User.Type != "Cashier")
             {
-                double price = Convert.ToInt32(Summary.Text.Replace("грн", ""));
+                
                 if (User.Balance > price)
                 {
                     Controller controller = new Controller();
@@ -130,10 +183,10 @@ namespace Kassa
                     if (Lux.Text == string.Empty)
                         Lux.Text = "0";
 
-                    if (controller.AddSell(Convert.ToInt32(Plac.Text), Convert.ToInt32(Kupe.Text), Convert.ToInt32(Lux.Text), User.Id, train.ID, st, lt) == false)
+                    if (controller.AddSell(Convert.ToInt32(Plac.Text), Convert.ToInt32(Kupe.Text), Convert.ToInt32(Lux.Text), User.Id, train.ID, st, lt, price, train.Departure, train.Arrival) == false)
                         MessageBox.Show("Недостатньо місць!");
                     else
-                        NavigationService.Navigate(new BuyTickets(User, train));
+                        NavigationService.Navigate(new BuyTickets(User, train, st, lt));
                 }
                 else
                     MessageBox.Show("Недостатньо на балансі!");
@@ -151,7 +204,7 @@ namespace Kassa
                 if (Lux.Text == string.Empty)
                     Lux.Text = "0";
 
-                if (controller.AddSell(Convert.ToInt32(Plac.Text), Convert.ToInt32(Kupe.Text), Convert.ToInt32(Lux.Text), User.Id, train.ID, st, lt) == false)
+                if (controller.AddSell(Convert.ToInt32(Plac.Text), Convert.ToInt32(Kupe.Text), Convert.ToInt32(Lux.Text), User.Id, train.ID, st, lt, price, train.Departure, train.Arrival) == false)
                     MessageBox.Show("Недостатньо місць!");
                 else
                 {
@@ -161,7 +214,7 @@ namespace Kassa
                     {
                         printDlg.PrintVisual(GripPrint, "Квиток");
 
-                        NavigationService.Navigate(new BuyTickets(User, train));
+                        NavigationService.Navigate(new BuyTickets(User, train, st, lt));
 
                     }
                 }
@@ -175,19 +228,23 @@ namespace Kassa
             if (Plac != null && Kupe != null && Lux != null)
             {
                 if (Plac.Text != String.Empty)
-                    price += Convert.ToDouble(Plac.Text) * (totaltime.TotalMinutes * 0.6);
+                    price += Convert.ToDouble(Plac.Text) * (totaltime.TotalMinutes * 0.7);
                 if (Kupe.Text != String.Empty)
-                    price += Convert.ToDouble(Kupe.Text) * 1.6 * (totaltime.TotalMinutes * 0.6);
+                    price += Convert.ToDouble(Kupe.Text) * 1.7 * (totaltime.TotalMinutes * 0.7);
                 if (Lux.Text != String.Empty)
-                    price += Convert.ToDouble(Lux.Text) * 2.4 * (totaltime.TotalMinutes * 0.6);
-                Summary.Text = price.ToString() + "грн";
+                    price += Convert.ToDouble(Lux.Text) * 2.8 * (totaltime.TotalMinutes * 0.7);
+                Summary.Text = Convert.ToString(Math.Round(price, 2)) + "грн";
             }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if(type == "Buy")
-                NavigationService.Navigate(new BuyTickets(User, train));
+            string st = StartP.Text.Replace("Пункт відправлення: ", "");
+            string lt = LastP.Text.Replace("Пункт прибуття: ", "");
+            if (type == "Buy")
+                NavigationService.Navigate(new BuyTickets(User, train, st, lt));
+            else
+                NavigationService.Navigate(new TikcetsList(User));
         }
     }
 }

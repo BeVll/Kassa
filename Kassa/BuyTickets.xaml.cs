@@ -55,7 +55,7 @@ namespace Kassa
             Profile.Text = this.user.Login;
             Balance.Content = "Баланс: " + this.user.Balance.ToString();
         }
-        public BuyTickets(User user, TrainUPD train)
+        public BuyTickets(User user, TrainUPD train, string st, string ls)
         {
             this.user = user;
             InitializeComponent();
@@ -68,8 +68,8 @@ namespace Kassa
             LastPunkt.ItemsSource = controller.GetStations();
             LastPunkt.DisplayMemberPath = "Name";
             Profile.Text = user.Login;
-            StartPunkt.SelectedItem = controller.GetStations().Where(s => s.Name == train.FirstStation).FirstOrDefault();
-            LastPunkt.SelectedItem = controller.GetStations().Where(s => s.Name == train.LastStation).FirstOrDefault();
+            StartPunkt.SelectedItem = controller.GetStations().Where(s => s.Name == st).FirstOrDefault();
+            LastPunkt.SelectedItem = controller.GetStations().Where(s => s.Name == ls).FirstOrDefault();
             dtpicker.SelectedDate = train.Departure;
             Balance.Content = "Баланс: " + this.user.Balance.ToString();
         }
@@ -85,10 +85,63 @@ namespace Kassa
             MenuClose.Visibility = Visibility.Collapsed;
         }
 
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void MenuList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MenuList.SelectedIndex == 0)
-                NavigationService.Navigate(new MainUser());
+                NavigationService.Navigate(new MainUser(user));
+            else if (MenuList.SelectedIndex == 1)
+                NavigationService.Navigate(new BuyTickets(user));
+            else if (MenuList.SelectedIndex == 2)
+                NavigationService.Navigate(new TikcetsList(user));
+            else if (MenuList.SelectedIndex == 3)
+                NavigationService.Navigate(new Schedule(user));
+            else if (MenuList.SelectedIndex == 4)
+                NavigationService.Navigate(new Profile(user));
+            else if (MenuList.SelectedIndex == 5)
+                NavigationService.Navigate(new AdminWin(user));
+            else if (MenuList.SelectedIndex == 6)
+                System.Diagnostics.Process.Start("cmd", "/C start" + " " + "https://github.com/BeVll/Kassa");
+        }
+
+
+
+
+
+        private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new BuyTickets(user));
+        }
+
+        private void StackPanel_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new TikcetsList(user));
+        }
+
+        private void StackPanel_MouseDown_2(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new Schedule(user));
+        }
+
+        private void StackPanel_MouseDown_3(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new Profile(user));
+        }
+
+        private void StackPanel_MouseDown_4(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new AdminWin(user));
+        }
+
+        private void StackPanel_MouseDown_5(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start("cmd", "/C start" + " " + "https://github.com/BeVll/Kassa");
+        }
+
+
+
+        private void StackPanel_MouseDown_6(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new MainUser(user));
         }
 
         private void toptrains_SelectionChanged(object sender, SelectionChangedEventArgs e)

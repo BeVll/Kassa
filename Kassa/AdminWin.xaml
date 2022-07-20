@@ -1,10 +1,9 @@
-﻿<Page x:Class="Kassa.MainUser"
+﻿<Page x:Class="Kassa.AdminWin"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kassa"
-      
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1220"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -104,13 +103,13 @@
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem Margin="0,50,0,0" >
-                        
-                        
+
+
                         <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_5" >
                             <materialDesign:PackIcon Kind="Github" Height="30" Width="30"  Margin="-6, 0,3,0"></materialDesign:PackIcon>
                             <TextBlock Text="GitHub" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
                         </StackPanel>
-                       
+
                     </ListBoxItem>
                 </ListView>
 
@@ -118,10 +117,56 @@
 
 
         </Grid>
-        <Grid Width="1050" Height="550" Margin="50,50,0,0" Background="#F0F8FF" >
+        <Grid Width="1050" Height="250" VerticalAlignment="Top" Margin="50,100,0,0" Background="#F0F8FF" >
             
-            <TextBlock Margin="15" HorizontalAlignment="Center" Text="Каса" FontWeight="Bold" FontSize="40"></TextBlock>
-            <TextBlock Margin="15,90,15,15" FontSize="20" TextAlignment="Center" Width="500"  Text="Привіт! Вітаємо тебе у нашому програмному забезпечені для купівлі та продажу квитків! Надіюсь тобі все сподобається)" TextWrapping="Wrap"></TextBlock>
+            <Border Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 0" Background="#2196F3" Height="40">
+                <TextBlock Foreground="White" Text="Добавлення поїзда" Padding="0,2,0,0" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Bahnschrift"></TextBlock>
+            </Border>
+            <StackPanel Orientation="Vertical">
+                <TextBox x:Name="TrainNUm" Width="200" Height="40" Padding="10" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint ="Номер поїзда" VerticalAlignment="Top" Margin="20, 65,0,0" Cursor="Arrow"/>
+            <ComboBox x:Name="FirtsStat" Width="200" Height="40" Padding="10" Text="{Binding Name}" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint ="Перша станція" VerticalAlignment="Top" Margin="20, 20,0,0" IsEditable="True"/>
+                <ComboBox x:Name="LastStat" Width="200" Height="40" Padding="10" Text="{Binding Name}" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint ="Остання станція" VerticalAlignment="Top" Margin="20, 20,0,0" IsEditable="True"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="250,0,0,0">
+                <DatePicker x:Name="DateStart" Width="200" Height="40" Padding="10" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedDatePicker}" materialDesign:HintAssist.Hint ="Дата відправлення" VerticalAlignment="Top" Margin="20, 20,0,0"/>
+                <TextBox x:Name="Plackart" Width="200" PreviewTextInput="NumberValidationTextBox" Height="40" Padding="10" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint ="Місць плацкарт" VerticalAlignment="Top" Margin="20, 17,0,0" Cursor="Arrow"/>
+                <TextBox x:Name="Kupe" Width="200" PreviewTextInput="NumberValidationTextBox" Height="40" Padding="10" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint ="Місць купе" VerticalAlignment="Top" Margin="20, 17,0,0"/>
+                <TextBox x:Name="Lux" Width="200" PreviewTextInput="NumberValidationTextBox" Height="40" Padding="10" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint ="Місць люкс" VerticalAlignment="Top" Margin="20, 17,0,0"/>
+            </StackPanel>
+            <Border Background="#2196F3" Height="250" Width="2" Margin="0,0,0,0" HorizontalAlignment="Center">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="30" Color="Aqua" ShadowDepth="0"/>
+                </Border.Effect>
+            </Border>
+            <StackPanel Orientation="Vertical" Margin="280,0,0,0" HorizontalAlignment="Center">
+                <ComboBox x:Name="stat" Width="200" Height="40" Padding="10" Text="{Binding Name}" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint ="Станція" VerticalAlignment="Top" Margin="20, 20,0,0" IsEditable="True"/>
+                <materialDesign:TimePicker x:Name="ArrivalTime" Width="200" Height="40" Padding="10" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedTimePicker}" materialDesign:HintAssist.Hint ="Час прибуття" VerticalAlignment="Top" Margin="20, 17,0,0" Cursor="Arrow" Is24Hours="True"/>
+                <materialDesign:TimePicker x:Name="DepartureTume" Width="200" Height="40" Padding="10" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedTimePicker}" materialDesign:HintAssist.Hint ="Час відправлення" VerticalAlignment="Top" Margin="20, 17,0,0" Is24Hours="True"/>
+                <Button Width="200" Height="40" Margin="21, 17,0,0" Content="Добавити станцію" Click="Button_Click"/>
+            </StackPanel>
+            <ListView x:Name="stationslist" d:ItemsSource="{d:SampleData ItemCount=500}" Width="230" Height="150" Margin="0, 20, 20, 0" VerticalAlignment="Top" HorizontalAlignment="Right" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="205" Height="60" Margin="0, 0">
+                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" VerticalAlignment="Bottom" Margin="5, 10"/>
+                            <TextBlock Text="{Binding Arrival}" HorizontalAlignment="Right" VerticalAlignment="Bottom" TextAlignment="Right" Margin="5, 10"/>
+                            <Border Background="Gray" Height="2" Width="60" Margin="0,4,0,0" HorizontalAlignment="Right">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="30" Color="Aqua" ShadowDepth="0"/>
+                                </Border.Effect>
+                            </Border>
+                            <TextBlock Text="{Binding Departure}" HorizontalAlignment="Right" VerticalAlignment="Bottom" TextAlignment="Right" Margin="5, 0,0,30"/>
+                            <Border Background="#2196F3" Height="2" Width="200" Margin="0,4,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="30" Color="Aqua" ShadowDepth="0"/>
+                                </Border.Effect>
+                            </Border>
+                        </Grid>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Width="220" Height="40" Margin="0,0,20,20" VerticalAlignment="Bottom" Background="#1AD0C1" BorderBrush="#1AD0C1" Foreground="#073834" HorizontalAlignment="Right" Content="Добавити поїзд" Click="Button_Click_1"/>
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3"></DropShadowEffect>
             </Grid.Effect>

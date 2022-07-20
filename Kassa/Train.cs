@@ -34,6 +34,7 @@ namespace Kassa
         public Train(int id, string number, string firstStation, string lastStation, string stations, string stationsTime, string data, int plackart_Count, int kupe_Count, int lux_Count, int countSell)
         {
             ID = id;
+            Number = number;
             FirstStation = firstStation;
             LastStation = lastStation;
             Stations = stations;
