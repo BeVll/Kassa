@@ -161,11 +161,22 @@ namespace Kassa
             return stations;
         }
 
-        public void AddSell(int plac, int kupe, int lux, int user_id, int train_id, string Start, string Last)
+        public bool AddSell(int plac, int kupe, int lux, int user_id, int train_id, string Start, string Last)
         {
-            Sell sell = new Sell(user_id, plac, kupe, lux, train_id, Start, Last);
-            bd.Sell.Add(sell);
-            bd.SaveChanges();
+            Train train = bd.Trains.Where(s => s.ID == train_id).FirstOrDefault();
+            if (train.Plackart_Count >= plac && train.Kupe_Count >= kupe && train.Lux_Count >= lux)
+            {
+                Sell sell = new Sell(user_id, plac, kupe, lux, train_id, Start, Last);
+                train.Plackart_Count -= sell.Plackart_Count;
+                train.Kupe_Count -= sell.Kupe_Count;
+                train.Lux_Count -= sell.Lux_Count;
+                bd.Trains.Update(train);
+                bd.Sell.Add(sell);
+                bd.SaveChanges();
+                return true;
+            }
+            else
+                return false;
         }
 
         public string GetStationsTimeOnRoute(List<StationUPD> stationUPDs)

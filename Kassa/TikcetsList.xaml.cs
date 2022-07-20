@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace Kassa
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для TikcetsList.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TikcetsList : Page
     {
-        public MainWindow()
+        public TikcetsList()
         {
             InitializeComponent();
-            //Log log = new Log();
-            //log.Show();
-            Log wu = new Log();
-            wu.Show();
-            Close();
         }
     }
 }

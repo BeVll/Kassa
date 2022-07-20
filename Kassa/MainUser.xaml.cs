@@ -52,7 +52,7 @@ namespace Kassa
         private void MenuList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MenuList.SelectedIndex == 1)
-                NavigationService.Navigate(new BuyTickets());
+                NavigationService.Navigate(new BuyTickets(_user));
         }
     }
 }

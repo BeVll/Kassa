@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 
+
 namespace Kassa
 {
     /// <summary>
@@ -24,6 +25,7 @@ namespace Kassa
         private User User;
         private TrainUPD train;
         private TimeSpan totaltime;
+        private string type;
         public TrainBuy()
         {
             InitializeComponent();
@@ -45,6 +47,47 @@ namespace Kassa
             TimeLs.Text = "Час прибуття: " + train.Arrival.ToString();
             TimeTotal.Text = "Тривалість: " + totaltime.Hours.ToString() + ":" + totaltime.Minutes.ToString();
             Balance.Content = "Баланс: " + User.Balance.ToString();
+            Diisnyi.Visibility = Visibility.Hidden;
+            if (User.Type == "Cashier")
+                BuyBut.Content = "Продати";
+            else
+                BuyBut.Content = "Купити";
+            type = "Buy";
+        }
+        public TrainBuy(User user, TrainUPD trainUPD, string startst, string lastst, Sell sell)
+        {
+            train = trainUPD;
+            User = user;
+            User.Balance = 5000;
+            InitializeComponent();
+            TrainNum.Text = "#" + train.Number;
+            FStat.Text = train.FirstStation;
+            LStat.Text = train.LastStation;
+            totaltime = train.Arrival - train.Departure;
+            NomerTrain.Text = "Поїзд: " + train.Number;
+            StartP.Text = "Пункт відправлення: " + startst;
+            LastP.Text = "Пункт прибуття: " + lastst;
+            TimeSt.Text = "Час відправлення: " + train.Departure.ToString();
+            TimeLs.Text = "Час прибуття: " + train.Arrival.ToString();
+            TimeTotal.Text = "Тривалість: " + totaltime.Hours.ToString() + ":" + totaltime.Minutes.ToString();
+            Balance.Content = "Баланс: " + User.Balance.ToString();
+            BuyBut.Visibility = Visibility.Collapsed;
+            Plac.Text = sell.Plackart_Count.ToString();
+            Kupe.Text = sell.Kupe_Count.ToString();
+            Lux.Text = sell.Lux_Count.ToString();
+            Plac.IsEnabled = false;
+            Kupe.IsEnabled = false;
+            Lux.IsEnabled = false;
+            if (train.Arrival > DateTime.Now) {
+                Diisnyi.Text = "Дійсний";
+                Diisnyi.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                Diisnyi.Text = "Недійсний";
+                Diisnyi.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Green);
+            }
+            type = "ShowSell";
         }
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
@@ -72,23 +115,58 @@ namespace Kassa
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            double price = Convert.ToInt32(Summary.Text.Replace("грн", ""));
-            if (User.Balance > price)
+            if (User.Type != "Cashier")
             {
-                Controller controller = new Controller();
+                double price = Convert.ToInt32(Summary.Text.Replace("грн", ""));
+                if (User.Balance > price)
+                {
+                    Controller controller = new Controller();
+                    string st = StartP.Text.Replace("Пункт відправлення: ", "");
+                    string lt = LastP.Text.Replace("Пункт прибуття: ", "");
+                    if (Plac.Text == string.Empty)
+                        Plac.Text = "0";
+                    if (Kupe.Text == string.Empty)
+                        Kupe.Text = "0";
+                    if (Lux.Text == string.Empty)
+                        Lux.Text = "0";
+
+                    if (controller.AddSell(Convert.ToInt32(Plac.Text), Convert.ToInt32(Kupe.Text), Convert.ToInt32(Lux.Text), User.Id, train.ID, st, lt) == false)
+                        MessageBox.Show("Недостатньо місць!");
+                    else
+                        NavigationService.Navigate(new BuyTickets(User, train));
+                }
+                else
+                    MessageBox.Show("Недостатньо на балансі!");
+            }
+            else
+            {
                 string st = StartP.Text.Replace("Пункт відправлення: ", "");
                 string lt = LastP.Text.Replace("Пункт прибуття: ", "");
+                Controller controller = new Controller();
+                PrintDialog printDlg = new PrintDialog();
                 if (Plac.Text == string.Empty)
                     Plac.Text = "0";
                 if (Kupe.Text == string.Empty)
                     Kupe.Text = "0";
                 if (Lux.Text == string.Empty)
                     Lux.Text = "0";
-                controller.AddSell(Convert.ToInt32(Plac.Text), Convert.ToInt32(Kupe.Text), Convert.ToInt32(Lux.Text), User.Id, train.ID, st, lt);
-                NavigationService.Navigate(new BuyTickets(User, train));
+
+                if (controller.AddSell(Convert.ToInt32(Plac.Text), Convert.ToInt32(Kupe.Text), Convert.ToInt32(Lux.Text), User.Id, train.ID, st, lt) == false)
+                    MessageBox.Show("Недостатньо місць!");
+                else
+                {
+                    BuyBut.Visibility = Visibility.Hidden;
+                    
+                    if (printDlg.ShowDialog() == true)
+                    {
+                        printDlg.PrintVisual(GripPrint, "Квиток");
+
+                        NavigationService.Navigate(new BuyTickets(User, train));
+
+                    }
+                }
             }
-            else
-                MessageBox.Show("Недостатньо на балансі!");
+
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -104,6 +182,12 @@ namespace Kassa
                     price += Convert.ToDouble(Lux.Text) * 2.4 * (totaltime.TotalMinutes * 0.6);
                 Summary.Text = price.ToString() + "грн";
             }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if(type == "Buy")
+                NavigationService.Navigate(new BuyTickets(User, train));
         }
     }
 }

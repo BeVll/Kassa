@@ -108,7 +108,7 @@
 
 
         </Grid>
-        <Grid Width="950" Height="450" Margin="50,50,0,0" Background="#F0F8FF" Panel.ZIndex="0">
+        <Grid x:Name="GripPrint" Width="950" Height="450" Margin="50,50,0,0" Background="#F0F8FF" Panel.ZIndex="0">
             <Grid Height="90" VerticalAlignment="Top" Background="#2196F3">
 
                 <TextBlock x:Name="TrainNum" Text="#12305" HorizontalAlignment="Left" FontSize="25" FontWeight="Bold" Margin="15,28" Foreground="#FFFFFF"/>
@@ -141,16 +141,17 @@
                     <TextBlock Text="Купе"    HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="17" Margin="46,0,0,0" AllowDrop="True" FontFamily="Bahnschrift"/>
                     <TextBox x:Name="Kupe" Width="30" Padding="0,2,2,0" TextAlignment="Center" PreviewTextInput="NumberValidationTextBox" Style="{DynamicResource MaterialDesignOutlinedTextBox}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="99,0,0,0" TextChanged="TextBox_TextChanged"/>
                     <TextBlock Text="Люкс"   HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="17" Margin="41,0,0,8" AllowDrop="True" FontFamily="Bahnschrift"/>
-                    <TextBox x:Name="Lux" Width="30" Padding="0,2,2,0" TextAlignment="Center" PreviewTextInput="NumberValidationTextBox" Foreground="#FFFFFF"  Style="{DynamicResource MaterialDesignOutlinedTextBox}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Bottom" Margin="99,0,0,6" TextChanged="TextBox_TextChanged"/>
+                    <TextBox x:Name="Lux" Width="30" Padding="0,2,2,0" TextAlignment="Center" PreviewTextInput="NumberValidationTextBox"  Style="{DynamicResource MaterialDesignOutlinedTextBox}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Bottom" Margin="99,0,0,6" TextChanged="TextBox_TextChanged"/>
                     <TextBlock Text="Всього: "   HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="17" Margin="41,15,100,8" AllowDrop="True" FontFamily="Bahnschrift"/>
                     <TextBlock x:Name="Summary" Text="0грн"   HorizontalAlignment="Right" TextAlignment="Left" Width="80" VerticalAlignment="Top" FontSize="17" Margin="41,15,15,8" AllowDrop="True" FontFamily="Bahnschrift"/>
-                    <Button Content="Купити" FontSize="23" Height="45" Width="150" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15, 10" Click="Button_Click"/>
+                    <TextBlock x:Name="Diisnyi" Text="Дійсний"   HorizontalAlignment="Center" TextAlignment="Left"  VerticalAlignment="Center" FontSize="25"  FontFamily="Bahnschrift"/>
+                    <Button x:Name="BuyBut" Content="Купити" FontSize="23" Height="45" Width="150" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15, 10" Click="Button_Click" Cursor="Hand"/>
                 </Grid>
             </Grid>
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3"></DropShadowEffect>
             </Grid.Effect>
         </Grid>
-
+        <Button Content="Назад" VerticalAlignment="Bottom" FontSize="17" HorizontalAlignment="Left" Width="90" Height="40" Click="Button_Click_1" Margin="1130,0,0,0"/>
     </Grid>
 </Page>

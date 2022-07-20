@@ -47,11 +47,12 @@ namespace Kassa
             List<TrainUPD> trains = controller.SetTopTrains();
             toptrains.ItemsSource = trains;
             StartPunkt.ItemsSource = controller.GetStations();
+           
             StartPunkt.DisplayMemberPath = "Name";
             LastPunkt.ItemsSource = controller.GetStations();
             LastPunkt.DisplayMemberPath = "Name";
             dtpicker.SelectedDate = DateTime.Now;
-            Profile.Text = user.Login;
+            Profile.Text = this.user.Login;
             Balance.Content = "Баланс: " + this.user.Balance.ToString();
         }
         public BuyTickets(User user, TrainUPD train)
@@ -112,7 +113,7 @@ namespace Kassa
 
         private void foundtrains_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            user = new User();
+            
             NavigationService.Navigate(new TrainBuy(user, foundtrains.SelectedItem as TrainUPD, St, Ls));
         }
     }

@@ -144,9 +144,9 @@
                 </Border.Effect>
             </Border>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="25,235,0,0" VerticalAlignment="Top" >
-                <ComboBox x:Name="StartPunkt" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint ="Звідки" Width="320"  Height="50"/>
+                <ComboBox x:Name="StartPunkt" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint ="Звідки" Width="320"  Height="50" IsTextSearchCaseSensitive="True" IsEditable="True"/>
                 <Button Content="↕" Style="{DynamicResource MaterialDesignFlatButton}" Width="30" FontSize="40" Height="30" Padding="0,-17,0,0" Margin="0,10" VerticalContentAlignment="Top" FontWeight="Black" Foreground="#1A76C1" FontFamily="Segoe UI"/>
-                <ComboBox x:Name="LastPunkt" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint ="Куди" Width="320" Margin="0,0"  Height="50"/>
+                <ComboBox x:Name="LastPunkt" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint ="Куди" Width="320" Margin="0,0"  Height="50" IsEditable="True"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="25,415,0,0" VerticalAlignment="Top" >
 

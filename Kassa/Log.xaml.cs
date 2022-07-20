@@ -39,13 +39,10 @@ namespace Kassa
             if (user == null)
                 MessageBox.Show("Логин или пароль неверный!", "Ошибка", MessageBoxButton.OK);
             else
-            {
-                if(user.Type == "User")
-                {
+            {             
                     WindowUser wu = new WindowUser(user);
                     wu.Show();
                     Close();
-                }
             }
 
         }
