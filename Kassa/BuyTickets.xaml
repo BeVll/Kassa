@@ -43,11 +43,11 @@
                 <TextBlock x:Name="Profile" Text="BeVl" Foreground="White" Height="50"  Background="#1A76C1" Padding="8,7,8,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="25" TextAlignment="Right" FontWeight="DemiBold" Margin="0,0,35,0"></TextBlock>
                 <materialDesign:PopupBox HorizontalContentAlignment="Left" Foreground="White"  Height="45" Margin="81,2,0,2">
                     <StackPanel HorizontalAlignment="Left">
-                        <Button x:Name="Balance" Content="Баланс: "/>
-                        <Button Content="Профіль"/>
-                        <Button Content="Мої квитки"/>
+                        <Button x:Name="Balance" Content="Баланс: " Click="Balance_Click"/>
+                        <Button Content="Профіль" Click="Button_Click_1"/>
+                        <Button Content="Мої квитки" Click="Button_Click_4"/>
                         <Separator/>
-                        <Button Content="Вийти"/>
+                        <Button Content="Вийти" Click="Button_Click_5"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
             </Grid>
@@ -84,12 +84,7 @@
                             <TextBlock Text="Мої квитки" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_2">
-                            <materialDesign:PackIcon Kind="Schedule" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
-                            <TextBlock Text="Розписання" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
+                    
                     <ListBoxItem>
                         <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_3">
                             <materialDesign:PackIcon Kind="Selfie" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>

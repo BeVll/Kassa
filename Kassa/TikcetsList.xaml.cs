@@ -39,6 +39,8 @@ namespace Kassa
             List<Sell> sells = Controller.GetSellsForUser(_user);
             var top = sells.OrderByDescending(s => s.Departure);
             listtickets.ItemsSource = top;
+            if (_user.Type != "Admin")
+                Admin.Visibility = Visibility.Collapsed;
         }
 
         private void MenuOpen_Click(object sender, RoutedEventArgs e)
@@ -62,17 +64,36 @@ namespace Kassa
             else if (MenuList.SelectedIndex == 2)
                 NavigationService.Navigate(new TikcetsList(_user));
             else if (MenuList.SelectedIndex == 3)
-                NavigationService.Navigate(new Schedule(_user));
-            else if (MenuList.SelectedIndex == 4)
                 NavigationService.Navigate(new Profile(_user));
-            else if (MenuList.SelectedIndex == 5)
+            else if (MenuList.SelectedIndex == 4 && _user.Type == "Admin")
                 NavigationService.Navigate(new AdminWin(_user));
-            else if (MenuList.SelectedIndex == 6)
+            else if (MenuList.SelectedIndex == 5)
                 System.Diagnostics.Process.Start("cmd", "/C start" + " " + "https://github.com/BeVll/Kassa");
         }
 
 
+        private void Balance_Click(object sender, RoutedEventArgs e)
+        {
+            if (_user.Type != "Cashier")
+            {
+                NavigationService.Navigate(new Balance(_user));
+            }
+        }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Profile(_user));
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new TikcetsList(_user));
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
 
 
         private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
@@ -85,10 +106,6 @@ namespace Kassa
             NavigationService.Navigate(new TikcetsList(_user));
         }
 
-        private void StackPanel_MouseDown_2(object sender, MouseButtonEventArgs e)
-        {
-            NavigationService.Navigate(new Schedule(_user));
-        }
 
         private void StackPanel_MouseDown_3(object sender, MouseButtonEventArgs e)
         {
@@ -97,7 +114,10 @@ namespace Kassa
 
         private void StackPanel_MouseDown_4(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new AdminWin(_user));
+            if (_user.Type == "Admin")
+            {
+                NavigationService.Navigate(new AdminWin(_user));
+            }
         }
 
         private void StackPanel_MouseDown_5(object sender, MouseButtonEventArgs e)

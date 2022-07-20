@@ -1,10 +1,9 @@
-﻿<Page x:Class="Kassa.MainUser"
+﻿<Page x:Class="Kassa.Balance"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kassa"
-      
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1220"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -44,7 +43,7 @@
                 <TextBlock x:Name = "Profile" Text="BeVl" Foreground="White" Height="50"  Background="#1A76C1" Padding="8,7,8,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="25" TextAlignment="Right" FontWeight="DemiBold" Margin="0,0,35,0"></TextBlock>
                 <materialDesign:PopupBox HorizontalContentAlignment="Left" Foreground="White"  Height="45" Margin="81,2,0,2">
                     <StackPanel HorizontalAlignment="Left">
-                        <Button x:Name="Balance" Content="Баланс: " Click="Balance_Click"/>
+                        <Button x:Name="Balance2" Content="Баланс: " Click="Balance_Click"/>
                         <Button Content="Профіль" Click="Button_Click_1"/>
                         <Button Content="Мої квитки" Click="Button_Click_4"/>
                         <Separator/>
@@ -85,7 +84,7 @@
                             <TextBlock Text="Мої квитки" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
                         </StackPanel>
                     </ListBoxItem>
-                   
+
                     <ListBoxItem>
                         <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_3">
                             <materialDesign:PackIcon Kind="Selfie" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
@@ -99,13 +98,13 @@
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem Margin="0,50,0,0" >
-                        
-                        
+
+
                         <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_5" >
                             <materialDesign:PackIcon Kind="Github" Height="30" Width="30"  Margin="-6, 0,3,0"></materialDesign:PackIcon>
                             <TextBlock Text="GitHub" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
                         </StackPanel>
-                       
+
                     </ListBoxItem>
                 </ListView>
 
@@ -113,10 +112,16 @@
 
 
         </Grid>
-        <Grid Width="1050" Height="550" Margin="50,50,0,0" Background="#F0F8FF" >
-            
-            <TextBlock Margin="15" HorizontalAlignment="Center" Text="Каса" FontWeight="Bold" FontSize="40"></TextBlock>
-            <TextBlock Margin="15,90,15,15" FontSize="20" TextAlignment="Center" Width="500"  Text="Привіт! Вітаємо тебе у нашому програмному забезпечені для купівлі та продажу квитків! Надіюсь тобі все сподобається)" TextWrapping="Wrap"></TextBlock>
+        
+        <Grid Width="200" Height="280" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,30" Background="#F0F8FF" >
+            <Border Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 0" Background="#2196F3" Height="40">
+                <TextBlock Foreground="White" Text="Поповнення" Padding="0,2,0,0" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Bahnschrift"></TextBlock>
+            </Border>
+            <TextBox x:Name="CountMoney" PreviewTextInput="NumberValidationTextBox" Width="180" Height="40" Padding="10" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint ="Сума поповнення" VerticalAlignment="Top" Margin="10, 55,0,0" Cursor="Arrow" TextChanged="CountMoney_TextChanged"/>
+            <TextBox x:Name="komis" Width="180" Height="40" Padding="10" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint ="Комісія 5%" VerticalAlignment="Top" Margin="10, 110,0,0" Cursor="Arrow" IsEnabled="False"/>
+            <TextBlock Foreground="Black" Text="До сплати:" Padding="0,2,0,0" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Bahnschrift" Margin="10, 90,0,0"></TextBlock>
+            <TextBlock x:Name="Summary" Foreground="Black" Text="15000грн" Padding="0,2,0,0" FontSize="18" VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" FontFamily="Bahnschrift" Margin="110, 90,0,0"></TextBlock>
+            <Button Width="180" Height="40" Margin="0, 0,0,20" VerticalAlignment="Bottom" Content="Поповнити" Click="Button_Click_2"/>
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3"></DropShadowEffect>
             </Grid.Effect>

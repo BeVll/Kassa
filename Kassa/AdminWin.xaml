@@ -43,11 +43,11 @@
                 <TextBlock x:Name = "Profile" Text="BeVl" Foreground="White" Height="50"  Background="#1A76C1" Padding="8,7,8,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="25" TextAlignment="Right" FontWeight="DemiBold" Margin="0,0,35,0"></TextBlock>
                 <materialDesign:PopupBox HorizontalContentAlignment="Left" Foreground="White"  Height="45" Margin="81,2,0,2">
                     <StackPanel HorizontalAlignment="Left">
-                        <Button x:Name="Balance" Content="Баланс: "/>
-                        <Button Content="Профіль"/>
-                        <Button Content="Мої квитки"/>
+                        <Button x:Name="Balance" Content="Баланс: " Click="Balance_Click"/>
+                        <Button Content="Профіль" Click="Button_Click_1"/>
+                        <Button Content="Мої квитки" Click="Button_Click_4"/>
                         <Separator/>
-                        <Button Content="Вийти"/>
+                        <Button Content="Вийти" Click="Button_Click_5"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
             </Grid>
@@ -84,12 +84,7 @@
                             <TextBlock Text="Мої квитки" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_2">
-                            <materialDesign:PackIcon Kind="Schedule" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
-                            <TextBlock Text="Розписання" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
-                        </StackPanel>
-                    </ListBoxItem>
+                    
                     <ListBoxItem>
                         <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_3">
                             <materialDesign:PackIcon Kind="Selfie" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
@@ -142,7 +137,7 @@
                 <ComboBox x:Name="stat" Width="200" Height="40" Padding="10" Text="{Binding Name}" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint ="Станція" VerticalAlignment="Top" Margin="20, 20,0,0" IsEditable="True"/>
                 <materialDesign:TimePicker x:Name="ArrivalTime" Width="200" Height="40" Padding="10" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedTimePicker}" materialDesign:HintAssist.Hint ="Час прибуття" VerticalAlignment="Top" Margin="20, 17,0,0" Cursor="Arrow" Is24Hours="True"/>
                 <materialDesign:TimePicker x:Name="DepartureTume" Width="200" Height="40" Padding="10" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedTimePicker}" materialDesign:HintAssist.Hint ="Час відправлення" VerticalAlignment="Top" Margin="20, 17,0,0" Is24Hours="True"/>
-                <Button Width="200" Height="40" Margin="21, 17,0,0" Content="Добавити станцію" Click="Button_Click"/>
+                <Button Width="200" Height="40" Margin="21, 17,0,0" Content="Добавити станцію" Click="Button_Click21"/>
             </StackPanel>
             <ListView x:Name="stationslist" d:ItemsSource="{d:SampleData ItemCount=500}" Width="230" Height="150" Margin="0, 20, 20, 0" VerticalAlignment="Top" HorizontalAlignment="Right" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                 <ListView.ItemTemplate>
@@ -166,7 +161,29 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Width="220" Height="40" Margin="0,0,20,20" VerticalAlignment="Bottom" Background="#1AD0C1" BorderBrush="#1AD0C1" Foreground="#073834" HorizontalAlignment="Right" Content="Добавити поїзд" Click="Button_Click_1"/>
+            <Button Width="220" Height="40" Margin="0,0,20,20" VerticalAlignment="Bottom" Background="#1AD0C1" BorderBrush="#1AD0C1" Foreground="#073834" HorizontalAlignment="Right" Content="Добавити поїзд" Click="Button_Click_22"/>
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3"></DropShadowEffect>
+            </Grid.Effect>
+        </Grid>
+        <Grid Width="200" Height="250" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="110,0,0,30" Background="#F0F8FF" >
+            <Border Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 0" Background="#2196F3" Height="40">
+                <TextBlock Foreground="White" Text="Добавлення станції" Padding="0,2,0,0" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Bahnschrift"></TextBlock>
+            </Border>
+            <TextBox x:Name="StationName" Width="180" Height="40" Padding="10" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint ="Назва станції" VerticalAlignment="Top" Margin="10, 65,0,0" Cursor="Arrow"/>
+            <Button Width="180" Height="40" Margin="0, 0,0,20" VerticalAlignment="Bottom" Content="Добавити станцію" Click="Button_Click_23"/>
+            <Grid.Effect>
+            <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3"></DropShadowEffect>
+            </Grid.Effect>
+        </Grid>
+
+        <Grid Width="400" Height="250" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="350,0,0,30" Background="#F0F8FF" >
+            <Border Width="400" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 0" Background="#2196F3" Height="40">
+                <TextBlock Foreground="White" Text="Зміна типу користувача" Padding="0,2,0,0" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Bahnschrift"></TextBlock>
+            </Border>
+            <ComboBox x:Name="UserName" Width="280" Height="40" Padding="10" HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint ="Виберіть користувача" VerticalAlignment="Top" Margin="0, 65,0,0" Cursor="Arrow"/>
+            <Button Width="165" Height="40" Margin="20, 0,0,20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="Зробити звичайним" Click="Button_Click_23"/>
+            <Button Width="165" Height="40" Margin="0, 0,20,20" Foreground="#073834" Background="#1AD0C1" BorderBrush="#1AD0C1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Зробити касиром" Click="Button_Click_24"/>
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3"></DropShadowEffect>
             </Grid.Effect>

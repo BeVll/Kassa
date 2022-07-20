@@ -94,17 +94,36 @@ namespace Kassa
             else if (MenuList.SelectedIndex == 2)
                 NavigationService.Navigate(new TikcetsList(user));
             else if (MenuList.SelectedIndex == 3)
-                NavigationService.Navigate(new Schedule(user));
-            else if (MenuList.SelectedIndex == 4)
                 NavigationService.Navigate(new Profile(user));
-            else if (MenuList.SelectedIndex == 5)
+            else if (MenuList.SelectedIndex == 4 && user.Type == "Admin")
                 NavigationService.Navigate(new AdminWin(user));
-            else if (MenuList.SelectedIndex == 6)
+            else if (MenuList.SelectedIndex == 5)
                 System.Diagnostics.Process.Start("cmd", "/C start" + " " + "https://github.com/BeVll/Kassa");
         }
 
 
+        private void Balance_Click(object sender, RoutedEventArgs e)
+        {
+            if (user.Type != "Cashier")
+            {
+                NavigationService.Navigate(new Balance(user));
+            }
+        }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Profile(user));
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new TikcetsList(user));
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
 
 
         private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
@@ -117,10 +136,7 @@ namespace Kassa
             NavigationService.Navigate(new TikcetsList(user));
         }
 
-        private void StackPanel_MouseDown_2(object sender, MouseButtonEventArgs e)
-        {
-            NavigationService.Navigate(new Schedule(user));
-        }
+        
 
         private void StackPanel_MouseDown_3(object sender, MouseButtonEventArgs e)
         {
@@ -129,7 +145,10 @@ namespace Kassa
 
         private void StackPanel_MouseDown_4(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new AdminWin(user));
+            if (user.Type == "Admin")
+            {
+                NavigationService.Navigate(new AdminWin(user));
+            }
         }
 
         private void StackPanel_MouseDown_5(object sender, MouseButtonEventArgs e)

@@ -39,7 +39,7 @@ namespace Kassa
 
 
 
-        private bool RegistrationCheck(string log)
+        public bool RegistrationCheck(string log)
         {
             User ur = bd.Users.Where(l => l.Login == log).FirstOrDefault();
 
@@ -190,6 +190,30 @@ namespace Kassa
                 return false;
         }
 
+        public void ChangeTypeUser(User user)
+        {
+            bd.Users.Update(user);
+            bd.SaveChanges();
+        }
+
+        public List<User> GetUsers()
+        {
+            return bd.Users.ToList();
+        }
+
+        public bool AddStation(Station station)
+        {
+            List<Station> stations = bd.Stations.ToList();
+            if (stations.Exists(s => s.Name == station.Name) == true)
+                return false;
+            else
+            {
+                bd.Stations.Add(station);
+                bd.SaveChanges();
+                return true;
+            }
+
+        }
         public string GetStationsTimeOnRoute(List<StationUPD> stationUPDs)
         {
             string sts = string.Empty;

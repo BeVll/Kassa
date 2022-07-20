@@ -35,6 +35,8 @@ namespace Kassa
             this.user = user;
             InitializeComponent();
             Reset();
+            Profile.Text = this.user.Login;
+            Balance.Content = "Баланс: " + this.user.Balance.ToString();
         }
 
         private void Reset()
@@ -55,6 +57,11 @@ namespace Kassa
             stat.SelectedIndex = -1;
             stationUPDs1 = new List<StationUPD>();
             stationslist.Items.Clear();
+            TrainNUm.Text = "";
+            ArrivalTime.Text = "";
+            DepartureTume.Text = "";
+            UserName.ItemsSource = controller.GetUsers().Where(s => s.Type != "Admin");
+            UserName.DisplayMemberPath = "Login";
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -84,12 +91,10 @@ namespace Kassa
             else if (MenuList.SelectedIndex == 2)
                 NavigationService.Navigate(new TikcetsList(user));
             else if (MenuList.SelectedIndex == 3)
-                NavigationService.Navigate(new Schedule(user));
-            else if (MenuList.SelectedIndex == 4)
                 NavigationService.Navigate(new Profile(user));
-            else if (MenuList.SelectedIndex == 5)
+            else if (MenuList.SelectedIndex == 4 && user.Type == "Admin")
                 NavigationService.Navigate(new AdminWin(user));
-            else if (MenuList.SelectedIndex == 6)
+            else if (MenuList.SelectedIndex == 5)
                 System.Diagnostics.Process.Start("cmd", "/C start" + " " + "https://github.com/BeVll/Kassa");
         }
 
@@ -107,10 +112,7 @@ namespace Kassa
             NavigationService.Navigate(new TikcetsList(user));
         }
 
-        private void StackPanel_MouseDown_2(object sender, MouseButtonEventArgs e)
-        {
-            NavigationService.Navigate(new Schedule(user));
-        }
+       
 
         private void StackPanel_MouseDown_3(object sender, MouseButtonEventArgs e)
         {
@@ -119,7 +121,10 @@ namespace Kassa
 
         private void StackPanel_MouseDown_4(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new AdminWin(user));
+            if (user.Type == "Admin")
+            {
+                NavigationService.Navigate(new AdminWin(user));
+            }
         }
 
         private void StackPanel_MouseDown_5(object sender, MouseButtonEventArgs e)
@@ -127,14 +132,35 @@ namespace Kassa
             System.Diagnostics.Process.Start("cmd", "/C start" + " " + "https://github.com/BeVll/Kassa");
         }
 
+        private void Balance_Click(object sender, RoutedEventArgs e)
+        {
+            if (user.Type != "Cashier")
+            {
+                NavigationService.Navigate(new Balance(user));
+            }
+        }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Profile(user));
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new TikcetsList(user));
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
 
         private void StackPanel_MouseDown_6(object sender, MouseButtonEventArgs e)
         {
             NavigationService.Navigate(new MainUser(user));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click21(object sender, RoutedEventArgs e)
         {
             if (stat.SelectedIndex != -1 && ArrivalTime.Text != "" && DepartureTume.Text != "")
             {
@@ -150,7 +176,7 @@ namespace Kassa
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Click_22(object sender, RoutedEventArgs e)
         {
             if (TrainNUm.Text != string.Empty && FirtsStat.SelectedIndex != -1 && LastStat.SelectedIndex != -1 && Plackart.Text != string.Empty && Kupe.Text != string.Empty && Lux.Text != string.Empty && stationslist.Items.Count > 0)
             {
@@ -160,10 +186,56 @@ namespace Kassa
                 TrainUPD train = new TrainUPD(TrainNUm.Text, stat1.Name, stat2.Name, stationUPDs1, DateStart.SelectedDate.Value.ToShortDateString(), Convert.ToInt32(Plackart.Text), Convert.ToInt32(Kupe.Text), Convert.ToInt32(Lux.Text), 0, DateTime.Now, DateTime.Now);
                 Train train1 = controller.ToTrain(train);
                 controller.AddTrain(train1);
-
+                Reset();
             }
             else
                 MessageBox.Show("Не всі поля заповнені!");
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (StationName.Text == string.Empty)
+                MessageBox.Show("Пусте поле!");
+            else
+            {
+                if(controller.AddStation(new Station(StationName.Text)) == false)
+                    MessageBox.Show("Така станція вже існує!");
+                else
+                {
+                    StationName.Text = string.Empty;
+                }
+            }
+        }
+
+        private void Button_Click_23(object sender, RoutedEventArgs e)
+        {
+            User user = UserName.SelectedItem as User;
+            if (UserName.SelectedItem != null)
+            {
+                user.Type = "User";
+                controller.ChangeTypeUser(user);
+
+            }
+            else
+                MessageBox.Show("Оберіть користувача!");
+        }
+
+        private void Button_Click_24(object sender, RoutedEventArgs e)
+        {
+            User user = UserName.SelectedItem as User;
+            if (UserName.SelectedItem != null)
+            {
+                user.Type = "Cashier";
+                controller.ChangeTypeUser(user);
+
+            }
+            else
+                MessageBox.Show("Оберіть користувача!");
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

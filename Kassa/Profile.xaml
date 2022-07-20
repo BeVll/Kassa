@@ -5,10 +5,136 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kassa"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Profile">
+      d:DesignHeight="700" d:DesignWidth="1220"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Title="Профіль" Background="White">
+    <Page.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="250"/>
+
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="250"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="50"/>
+
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuOpen">
+            <BeginStoryboard Storyboard="{DynamicResource MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuClose">
+            <BeginStoryboard Storyboard="{DynamicResource MenuClose}"/>
+        </EventTrigger>
+    </Page.Triggers>
+
 
     <Grid>
-        
+        <Grid MinWidth = "1220" MaxWidth="1920" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" Background="AliceBlue" Width="1220">
+            <TextBlock Text="Головна" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"></TextBlock>
+            <Grid Width="120" HorizontalAlignment="Right" Background="#1A76C1">
+
+                <TextBlock x:Name = "Profile1" Text="BeVl" Foreground="White" Height="50"  Background="#1A76C1" Padding="8,7,8,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="25" TextAlignment="Right" FontWeight="DemiBold" Margin="0,0,35,0"></TextBlock>
+                <materialDesign:PopupBox HorizontalContentAlignment="Left" Foreground="White"  Height="45" Margin="81,2,0,2">
+                    <StackPanel HorizontalAlignment="Left">
+                        <Button x:Name="Balance" Content="Баланс: " Click="Balance_Click"/>
+                        <Button Content="Профіль" Click="Button_Click_1"/>
+                        <Button Content="Мої квитки" Click="Button_Click_4"/>
+                        <Separator/>
+                        <Button Content="Вийти" Click="Button_Click_5"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+            </Grid>
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3" Direction="180"></DropShadowEffect>
+            </Grid.Effect>
+        </Grid>
+        <Grid x:Name="GridMenu" Width="50" HorizontalAlignment="Left" Background="#2196F3" Panel.ZIndex="1">
+            <Grid Height="120" VerticalAlignment="Top" Background="#1A76C1">
+                <Button x:Name="MenuClose" Width="50" Visibility="Collapsed" Height="50" Foreground="White" Click="MenuClose_Click" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Padding="0" Style="{DynamicResource MaterialDesignFlatButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0" Cursor="Hand">
+                    <materialDesign:PackIcon Kind="ArrowLeft" Width="50" Height="50"></materialDesign:PackIcon>
+                </Button>
+                <Button x:Name="MenuOpen" Width="50" Height="50" Foreground="White" Click="MenuOpen_Click" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Padding="0" Style="{DynamicResource MaterialDesignFlatButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0" Cursor="Hand">
+                    <materialDesign:PackIcon Kind="Menu" Width="50" Height="50"></materialDesign:PackIcon>
+                </Button>
+            </Grid>
+            <Grid Margin="0,120,0,0" >
+                <ListView x:Name="MenuList" Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="MenuList_SelectionChanged">
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_6">
+                            <materialDesign:PackIcon Kind="ViewDashboard" Height="30" Width="30" Margin="-6, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Головна" Margin="7, 1" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem x:Name="Tickets">
+                        <StackPanel Orientation="Horizontal" Width="150" Margin="0" MouseDown="StackPanel_MouseDown">
+                            <materialDesign:PackIcon Kind="Ticket" Height="30" Width="30"  Margin="-6, 0,2,0" ></materialDesign:PackIcon>
+                            <TextBlock Text="Квитки" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Padding="0" Height="50">
+                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_1">
+                            <materialDesign:PackIcon Kind="TicketAccount" Height="30" Width="30"  Margin="3, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Мої квитки" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_3">
+                            <materialDesign:PackIcon Kind="Selfie" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Профіль" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem x:Name="Admin">
+                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_4">
+                            <materialDesign:PackIcon Kind="Administrator" Height="30" Width="30"  Margin="-6, 0,2,0"></materialDesign:PackIcon>
+                            <TextBlock Text="Адміністрування" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Margin="0,50,0,0" >
+
+
+                        <StackPanel Orientation="Horizontal" MouseDown="StackPanel_MouseDown_5" >
+                            <materialDesign:PackIcon Kind="Github" Height="30" Width="30"  Margin="-6, 0,3,0"></materialDesign:PackIcon>
+                            <TextBlock Text="GitHub" Margin="7, 0" FontSize="23" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+
+                    </ListBoxItem>
+                </ListView>
+
+            </Grid>
+
+
+        </Grid>
+        <Grid Width="1050" Height="550" Margin="50,50,0,0" Background="#F0F8FF" >
+            <TextBlock x:Name="Profile_title" Text="Профиль" FontSize="35" Foreground="Black" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Bahnschrift SemiBold" Margin="0,25,0,0"></TextBlock>
+            <Border x:Name="border3" Background="#12C6FC" Margin="10,74,0,0" Height="2" Width="439" HorizontalAlignment="Center" VerticalAlignment="Top">
+
+
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="30" Color="LightBlue" ShadowDepth="0"></DropShadowEffect>
+                </Border.Effect>
+
+            </Border>
+            <Grid Width="514" HorizontalAlignment="Center">
+                <TextBlock x:Name="logintext" Text="Логін:" FontSize="25"  HorizontalAlignment="Left" FontWeight="Bold"  FontFamily="Comic Sans MS" Margin="58,165,0,5"/>
+                <TextBox x:Name="lchange" Text="0" Width="50" Height="40"  MinWidth="150" FontSize="22" FontFamily="Comic Sans MS" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="192,162,0,0" Cursor="Arrow" IsEnabled="False"/>
+                <Button x:Name="edit1" Background="#2196F3" Width="40" BorderBrush="#2196F3" FontSize="18" Padding="0" Content="✎" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="372,167,0,0" Click="Button_Click" BorderThickness="0,0,0,0"></Button>
+                <TextBlock x:Name="passtext" Text="Пароль:" FontSize="25"  HorizontalAlignment="Left" FontWeight="Bold"  FontFamily="Comic Sans MS" Margin="57,233,0,-63"/>
+                <TextBox x:Name="pchange" Text="0" Width="50" Height="40"  MinWidth="150" FontSize="22" FontFamily="Comic Sans MS" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="192,230,0,0" Cursor="Arrow" IsEnabled="False"/>
+                <Button x:Name="edit2" Background="#2196F3" Width="40" BorderBrush="#2196F3" FontSize="18" Padding="0" Content="✎" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="372,235,0,0" Click="Button_Click_2" BorderThickness="0,0,0,0"/>
+                <Button x:Name="confirm_btn" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="70" Background="#1A76C1" Margin="0,0,0,150" BorderBrush="#1A76C1" Content="Змінити" FontSize="25" BorderThickness="0,0,0,0" Click="Button_Click_3" Cursor="Hand"></Button>
+            </Grid>
+            
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="30" ShadowDepth="0" Color="#77BBF3"></DropShadowEffect>
+            </Grid.Effect>
+        </Grid>
     </Grid>
 </Page>
